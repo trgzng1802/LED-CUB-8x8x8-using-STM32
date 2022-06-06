@@ -1,0 +1,544 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD18\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">27/05/2022</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">23:27:36</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:00</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc" class="file"><acronym title="D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc">D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">72</td></tr>
+</table>
+</td>
+</table><a name="ID01V0HRKVA1UIWECVLT2K4LOGEMYNPZJR3WKW1KVPBCRBPIOXW2B"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVER5RRBSS2OGOJ3HWFI01OIEYB1E4M1MECJE52MHVOPB3OSXGODB">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLVKF4DOU2BNPPJS2JO4QRE3EANNH0X2TTX2NREBEZ4BSSSUM0NUD">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDLW4ZE35NEUX2IRFLGBAFB3QWXNSIRNYO4MMT2XKCAC3L4U4HJHDI">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQVYRDC3PPDNSCVYITRI5XI1SFOLM5XCMEYS5CZMXY3UIBNATEWAK">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDKWUMCY21Z10OINUT0MXRRMLVEFFIKOVI5X40NOPLP1S1QRQSQBFB">Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID3IDMTFFASLK3IILRQPEMA5G03MBHZGTA3MWDENNWTSBFXYUOAGIH">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDDUM5UIRSEPB2B5EZNWFCRKPIJO3DO53U4EDRSBJT1STZHE2CDHLI">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDB05NFKLT2CUBPBCV3PKTNWG0UHJW23JI4PYAZMGIACQVFWWQPHXH">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDBFBJ4F2MGOLFH0VQRPNNXZOSLF4BEARICPPNO2FO3H0PX3MBRDXP">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID4KHNE1TXRBZBEAK4FGZZ0UOCEEECQFVKFC3CKUIRHZMO1MN12OML">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">72</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID21TFY02KIWJMJCD1OAXYYMZENCV2WXLFKUQQRSDOPSCHHA3VNHAL">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDSV4RAVVWGR2EMJULG1VSKGYFKCVQE1JBTUTGPIJVNO1QSS32TYMK">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID1XQQFDN53MMIF2OINSFUDIDYADDVR0DXBNCU4J1UZFGYPXS0ZOH">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">72</td>
+</tr>
+</table><br><a name="ID4KHNE1TXRBZBEAK4FGZZ0UOCEEECQFVKFC3CKUIRHZMO1MN12OML"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.125mil|Location2.X=8541.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.125mil|Location2.X=8541.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.5mil &lt; 10mil) Between Pad P1-1(8585mil,1120mil) on Multi-Layer And Track (8528mil,1064mil)(8528mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P1-2(8585mil,1220mil) on Multi-Layer And Track (8528mil,1064mil)(8528mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P1-3(8585mil,1320mil) on Multi-Layer And Track (8528mil,1064mil)(8528mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P1-4(8585mil,1420mil) on Multi-Layer And Track (8528mil,1064mil)(8528mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P1-5(8585mil,1520mil) on Multi-Layer And Track (8528mil,1064mil)(8528mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P1-6(8585mil,1620mil) on Multi-Layer And Track (8528mil,1064mil)(8528mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P1-7(8585mil,1720mil) on Multi-Layer And Track (8528mil,1064mil)(8528mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8530.147mil|Location2.X=8541.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P1-8(8585mil,1820mil) on Multi-Layer And Track (8528mil,1064mil)(8528mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.125mil|Location2.X=8751.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.125mil|Location2.X=8751.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.5mil &lt; 10mil) Between Pad P2-1(8795mil,1120mil) on Multi-Layer And Track (8738mil,1064mil)(8738mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P2-2(8795mil,1220mil) on Multi-Layer And Track (8738mil,1064mil)(8738mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P2-3(8795mil,1320mil) on Multi-Layer And Track (8738mil,1064mil)(8738mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P2-4(8795mil,1420mil) on Multi-Layer And Track (8738mil,1064mil)(8738mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P2-5(8795mil,1520mil) on Multi-Layer And Track (8738mil,1064mil)(8738mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P2-6(8795mil,1620mil) on Multi-Layer And Track (8738mil,1064mil)(8738mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P2-7(8795mil,1720mil) on Multi-Layer And Track (8738mil,1064mil)(8738mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8740.147mil|Location2.X=8751.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P2-8(8795mil,1820mil) on Multi-Layer And Track (8738mil,1064mil)(8738mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.125mil|Location2.X=8121.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.125mil|Location2.X=8121.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.5mil &lt; 10mil) Between Pad P3-1(8165mil,1120mil) on Multi-Layer And Track (8108mil,1064mil)(8108mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P3-2(8165mil,1220mil) on Multi-Layer And Track (8108mil,1064mil)(8108mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P3-3(8165mil,1320mil) on Multi-Layer And Track (8108mil,1064mil)(8108mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P3-4(8165mil,1420mil) on Multi-Layer And Track (8108mil,1064mil)(8108mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P3-5(8165mil,1520mil) on Multi-Layer And Track (8108mil,1064mil)(8108mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P3-6(8165mil,1620mil) on Multi-Layer And Track (8108mil,1064mil)(8108mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P3-7(8165mil,1720mil) on Multi-Layer And Track (8108mil,1064mil)(8108mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8110.147mil|Location2.X=8121.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P3-8(8165mil,1820mil) on Multi-Layer And Track (8108mil,1064mil)(8108mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.125mil|Location2.X=8331.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.125mil|Location2.X=8331.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.5mil &lt; 10mil) Between Pad P4-1(8375mil,1120mil) on Multi-Layer And Track (8318mil,1064mil)(8318mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P4-2(8375mil,1220mil) on Multi-Layer And Track (8318mil,1064mil)(8318mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P4-3(8375mil,1320mil) on Multi-Layer And Track (8318mil,1064mil)(8318mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P4-4(8375mil,1420mil) on Multi-Layer And Track (8318mil,1064mil)(8318mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P4-5(8375mil,1520mil) on Multi-Layer And Track (8318mil,1064mil)(8318mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P4-6(8375mil,1620mil) on Multi-Layer And Track (8318mil,1064mil)(8318mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P4-7(8375mil,1720mil) on Multi-Layer And Track (8318mil,1064mil)(8318mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8320.147mil|Location2.X=8331.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P4-8(8375mil,1820mil) on Multi-Layer And Track (8318mil,1064mil)(8318mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.125mil|Location2.X=7701.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.125mil|Location2.X=7701.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.5mil &lt; 10mil) Between Pad P5-1(7745mil,1120mil) on Multi-Layer And Track (7688mil,1064mil)(7688mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P5-2(7745mil,1220mil) on Multi-Layer And Track (7688mil,1064mil)(7688mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P5-3(7745mil,1320mil) on Multi-Layer And Track (7688mil,1064mil)(7688mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P5-4(7745mil,1420mil) on Multi-Layer And Track (7688mil,1064mil)(7688mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P5-5(7745mil,1520mil) on Multi-Layer And Track (7688mil,1064mil)(7688mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P5-6(7745mil,1620mil) on Multi-Layer And Track (7688mil,1064mil)(7688mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P5-7(7745mil,1720mil) on Multi-Layer And Track (7688mil,1064mil)(7688mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7690.147mil|Location2.X=7701.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P5-8(7745mil,1820mil) on Multi-Layer And Track (7688mil,1064mil)(7688mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.125mil|Location2.X=7911.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.125mil|Location2.X=7911.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.5mil &lt; 10mil) Between Pad P6-1(7955mil,1120mil) on Multi-Layer And Track (7898mil,1064mil)(7898mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P6-2(7955mil,1220mil) on Multi-Layer And Track (7898mil,1064mil)(7898mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P6-3(7955mil,1320mil) on Multi-Layer And Track (7898mil,1064mil)(7898mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P6-4(7955mil,1420mil) on Multi-Layer And Track (7898mil,1064mil)(7898mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P6-5(7955mil,1520mil) on Multi-Layer And Track (7898mil,1064mil)(7898mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P6-6(7955mil,1620mil) on Multi-Layer And Track (7898mil,1064mil)(7898mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P6-7(7955mil,1720mil) on Multi-Layer And Track (7898mil,1064mil)(7898mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.147mil|Location2.X=7911.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P6-8(7955mil,1820mil) on Multi-Layer And Track (7898mil,1064mil)(7898mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.125mil|Location2.X=7281.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.125mil|Location2.X=7281.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.5mil &lt; 10mil) Between Pad P7-1(7325mil,1120mil) on Multi-Layer And Track (7268mil,1064mil)(7268mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P7-2(7325mil,1220mil) on Multi-Layer And Track (7268mil,1064mil)(7268mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P7-3(7325mil,1320mil) on Multi-Layer And Track (7268mil,1064mil)(7268mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P7-4(7325mil,1420mil) on Multi-Layer And Track (7268mil,1064mil)(7268mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P7-5(7325mil,1520mil) on Multi-Layer And Track (7268mil,1064mil)(7268mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P7-6(7325mil,1620mil) on Multi-Layer And Track (7268mil,1064mil)(7268mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P7-7(7325mil,1720mil) on Multi-Layer And Track (7268mil,1064mil)(7268mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7270.147mil|Location2.X=7281.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P7-8(7325mil,1820mil) on Multi-Layer And Track (7268mil,1064mil)(7268mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.125mil|Location2.X=7491.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.125mil|Location2.X=7491.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.5mil &lt; 10mil) Between Pad P8-1(7535mil,1120mil) on Multi-Layer And Track (7478mil,1064mil)(7478mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P8-2(7535mil,1220mil) on Multi-Layer And Track (7478mil,1064mil)(7478mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P8-3(7535mil,1320mil) on Multi-Layer And Track (7478mil,1064mil)(7478mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P8-4(7535mil,1420mil) on Multi-Layer And Track (7478mil,1064mil)(7478mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P8-5(7535mil,1520mil) on Multi-Layer And Track (7478mil,1064mil)(7478mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P8-6(7535mil,1620mil) on Multi-Layer And Track (7478mil,1064mil)(7478mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P8-7(7535mil,1720mil) on Multi-Layer And Track (7478mil,1064mil)(7478mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7480.147mil|Location2.X=7491.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P8-8(7535mil,1820mil) on Multi-Layer And Track (7478mil,1064mil)(7478mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.125mil|Location2.X=7071.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.125mil|Location2.X=7071.375mil|Location1.Y=1081.875mil|Location2.Y=1093.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.5mil &lt; 10mil) Between Pad P9-1(7115mil,1120mil) on Multi-Layer And Track (7058mil,1064mil)(7058mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1212.412mil|Location2.Y=1223.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P9-2(7115mil,1220mil) on Multi-Layer And Track (7058mil,1064mil)(7058mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1312.412mil|Location2.Y=1323.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P9-3(7115mil,1320mil) on Multi-Layer And Track (7058mil,1064mil)(7058mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1412.412mil|Location2.Y=1423.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P9-4(7115mil,1420mil) on Multi-Layer And Track (7058mil,1064mil)(7058mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1512.412mil|Location2.Y=1523.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P9-5(7115mil,1520mil) on Multi-Layer And Track (7058mil,1064mil)(7058mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1612.412mil|Location2.Y=1623.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P9-6(7115mil,1620mil) on Multi-Layer And Track (7058mil,1064mil)(7058mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1712.412mil|Location2.Y=1723.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P9-7(7115mil,1720mil) on Multi-Layer And Track (7058mil,1064mil)(7058mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\altium\rachancube.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7060.147mil|Location2.X=7071.397mil|Location1.Y=1812.412mil|Location2.Y=1823.662mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.544mil &lt; 10mil) Between Pad P9-8(7115mil,1820mil) on Multi-Layer And Track (7058mil,1064mil)(7058mil,1872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.544mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

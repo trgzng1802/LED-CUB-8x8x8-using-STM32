@@ -1,0 +1,7 @@
+Added Component: Designator=JDC1(DC-IN)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Value"; Value = "Jac DC"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=5V Pin=JDC1-1
+Added Pin To Net: NetName=GND Pin=JDC1-2
+Added Member To Class: ClassName=schematic_sn74hc595n Member=Component JDC1 Jack DC
+Added Room: Name=schematic_sn74hc595n
