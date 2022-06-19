@@ -47,22 +47,9 @@
 uint8_t layer;
 uint8_t column[8];
 uint8_t dataOut[9];
-int currentEffect;
+int currentEffect,flag;
 
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(GPIO_Pin);
-  if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == 0)
-  {
-	  if (currentEffect < 9) currentEffect++;
-	  else currentEffect = 0;
-  }
-  HAL_Delay(200);
-  /* NOTE: This function should not be modified, when the callback is needed,
-            the HAL_GPIO_EXTI_Callback could be implemented in the user file
-   */
-}
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -86,6 +73,16 @@ void numberingCube();
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == 0)
+  {
+	  if (currentEffect < 9) currentEffect++;
+	  else currentEffect = 0;
+  }
+  HAL_Delay(200);
+}
+
 void TransmitData(uint8_t* data) //ok
 {
 	HAL_GPIO_WritePin(LATCH_PIN_GPIO_Port, LATCH_PIN_Pin, GPIO_PIN_RESET);
@@ -278,65 +275,129 @@ void aroundEdgeCube() //ok
 
 void diaedgeCube() //ok
 {
-			//layer 1
-			layer = 0x81;
-			column[0] = column[7] = 0xff;
-			for (int i = 1; i < 7; i++)
-			{
-				column[i] = 0x81;
-			}
-			mergeData(column, layer);
-			TransmitData(dataOut);
-			//layer 2- 7
-			layer = 0x7e;
-			column[0] = column[7] = 0x81;
-			for (int i = 1; i < 7; i++)
-			{
-				column[i] = 0x00;
-			}
-			mergeData(column, layer);
-			TransmitData(dataOut);
+	int hold = 2;
+	//layer 1-8
+	layer = 0x81;
+	column[0] = column[7] = 0xff;
+	for (int i = 1; i < 7; i++) {
+		column[i] = 0x81;
+	}
+	mergeData(column, layer);
+	TransmitData(dataOut);
+	HAL_Delay(hold);
+	clearCube();
 
-			for (int i = 0; i < 8; i++)
-			{
-				layer = 0x01 << i;
-				column[i] = 0x80 >> i;
-				mergeData(column, layer);
-				TransmitData(dataOut);
-				clearCube();
-			}
-			for (int i = 0; i < 8; i++)
-			{
-				layer = 0x80 >> i;
-				column[i] = 0x80 >> i;
-				mergeData(column, layer);
-				TransmitData(dataOut);
-				clearCube();
-			}
-			for (int i = 0; i < 8; i++)
-			{
-				layer = 0x80 >> i;
-				column[i] = 0x80 >> i;
-				mergeData(column, layer);
-				TransmitData(dataOut);
-				clearCube();
-			}
-			for (int i = 0; i < 8; i++)
-			{
-				layer = 0x80 >> i;
-				column[i] = 0x01 << i;
-				mergeData(column, layer);
-				TransmitData(dataOut);
-				clearCube();
-			}
-			for (int i = 0; i < 8; i++)
-			{
-				layer = 0x01 << i;
-				column[i] = 0x01 << i;
-				mergeData(column, layer);
-				TransmitData(dataOut);
-				clearCube();
-			}
+	//layer 2-7
+	layer = 0x42;
+	column[0] = column[7] = 0x81;
+	column[1] = column[6] = 0x42;
+	for (int i = 2; i < 6; i++) {
+		column[i] = 0x00;
+	}
+	mergeData(column, layer);
+	TransmitData(dataOut);
+	HAL_Delay(hold);
+	clearCube();
+
+	//layer 3-6
+	layer = 0x24;
+	column[0] = column[7] = 0x81;
+	column[1] = column[6] = column[3] = column[4] = 0x00;
+	column[2] = column[5] = 0x24;
+	mergeData(column, layer);
+	TransmitData(dataOut);
+	HAL_Delay(hold);
+	clearCube();
+
+	//layer 4-5
+	layer = 0x18;
+	column[3] =column[4] = 0x18;
+	column[0] = column[7] = 0x81;
+	column[1] = column[2] = column[5] = column[6] = 0x00;
+	mergeData(column, layer);
+	TransmitData(dataOut);
+	HAL_Delay(hold);
+	clearCube();
+//			//layer
+//			int hold = 0;
+//			layer = 0x01;
+//			column[0] = column[7] = 0xff;
+//			for (int i = 1; i < 7; i++)
+//			{
+//				column[i] = 0x81;
+//			}
+//
+//			//layer 8
+//			layer = 0x80;
+//			column[0] = column[7] = 0xff;
+//			for (int i = 1; i < 7; i++)
+//			{
+//				column[i] = 0x81;
+//			}
+//			mergeData(column, layer);
+//			TransmitData(dataOut);
+//			HAL_Delay(hold);
+//			//layer 2- 7
+//			layer = 0x7e;
+//			column[0] = column[7] = 0x81;
+//			for (int i = 1; i < 7; i++)
+//			{
+//				column[i] = 0x00;
+//			}
+//			mergeData(column, layer);
+//			TransmitData(dataOut);
+//			HAL_Delay(hold);
+//
+//			for (int i = 0; i < 8; i++)
+//			{
+//				layer = 0x01 << i;
+//				column[i] = 0x80 >> i;
+//				mergeData(column, layer);
+//				TransmitData(dataOut);
+//				clearCube();
+//				HAL_Delay(hold);
+//			}
+//
+//			for (int i = 0; i < 8; i++)
+//			{
+//				layer = 0x80 >> i;
+//				column[i] = 0x80 >> i;
+//				mergeData(column, layer);
+//				TransmitData(dataOut);
+//				clearCube();
+//				HAL_Delay(hold);
+//			}
+//
+//			for (int i = 0; i < 8; i++)
+//			{
+//				layer = 0x80 >> i;
+//				column[i] = 0x80 >> i;
+//				mergeData(column, layer);
+//				TransmitData(dataOut);
+//				clearCube();
+//				HAL_Delay(hold);
+//			}
+//
+//			for (int i = 0; i < 8; i++)
+//			{
+//				layer = 0x80 >> i;
+//				column[i] = 0x01 << i;
+//				mergeData(column, layer);
+//				TransmitData(dataOut);
+//				clearCube();
+//				HAL_Delay(hold);
+//			}
+//
+//			for (int i = 0; i < 8; i++)
+//			{
+//				layer = 0x01 << i;
+//				column[i] = 0x01 << i;
+//				mergeData(column, layer);
+//				TransmitData(dataOut);
+//				clearCube();
+//				HAL_Delay(hold);
+//			}
+
 }
 
 void numberingCube() //ok
@@ -718,6 +779,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  currentEffect = 8;
 	 switch (currentEffect) {
 		case 0:
 			lightCube();
@@ -749,7 +811,7 @@ int main(void)
 		case 9:
 			numberingCube();
 			break;
-		default:aroundEdgeCube();
+		default:
 			break;
 	}
   }
