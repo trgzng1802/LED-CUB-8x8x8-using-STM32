@@ -32,7 +32,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define delay 500
-#define time 100
+#define time 200
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -58,6 +58,7 @@ void TransmitData(uint8_t* data, uint16_t size, uint32_t timeout );
 void clearCube();
 void planeCube();
 void lightCube();
+void waveCube();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -115,6 +116,11 @@ void lightCube()
 		data[i] = 0xff;
 	}
 	TransmitData(data, 9, 100);
+};
+
+void waveCube()
+{
+
 }
 /* USER CODE END 0 */
 
@@ -158,6 +164,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  planeCube();
   }
   /* USER CODE END 3 */
 }

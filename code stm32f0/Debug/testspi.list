@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000028  00000000  00000000  0002000c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00004cb4  00000000  00000000  00020034  2**0
+ 12 .debug_info   00004cc9  00000000  00000000  00020034  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 000010f4  00000000  00000000  00024ce8  2**0
+ 13 .debug_abbrev 0000111d  00000000  00000000  00024cfd  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000560  00000000  00000000  00025de0  2**3
+ 14 .debug_aranges 00000568  00000000  00000000  00025e20  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 000004c8  00000000  00000000  00026340  2**3
+ 15 .debug_ranges 000004d0  00000000  00000000  00026388  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00016d03  00000000  00000000  00026808  2**0
+ 16 .debug_macro  00016d03  00000000  00000000  00026858  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00006733  00000000  00000000  0003d50b  2**0
+ 17 .debug_line   00006746  00000000  00000000  0003d55b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00082c3a  00000000  00000000  00043c3e  2**0
+ 18 .debug_str    00082c7d  00000000  00000000  00043ca1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000c6878  2**0
+ 19 .comment      00000050  00000000  00000000  000c691e  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000011ec  00000000  00000000  000c68c8  2**2
+ 20 .debug_frame  00001208  00000000  00000000  000c6970  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -298,7 +298,7 @@ void planeCube()
  8000286:	0018      	movs	r0, r3
  8000288:	f7ff ffca 	bl	8000220 <TransmitData>
 	HAL_Delay(time);
- 800028c:	2064      	movs	r0, #100	; 0x64
+ 800028c:	20c8      	movs	r0, #200	; 0xc8
  800028e:	f000 fa8d 	bl	80007ac <HAL_Delay>
 	uint8_t dataCube1[9] = {0x7e,0x00,0x7e,0x7e,0x7e,0x7e,0x7e,0x7e,0x00};
  8000292:	2528      	movs	r5, #40	; 0x28
@@ -315,7 +315,7 @@ void planeCube()
  80002a6:	0018      	movs	r0, r3
  80002a8:	f7ff ffba 	bl	8000220 <TransmitData>
 	HAL_Delay(time);
- 80002ac:	2064      	movs	r0, #100	; 0x64
+ 80002ac:	20c8      	movs	r0, #200	; 0xc8
  80002ae:	f000 fa7d 	bl	80007ac <HAL_Delay>
 	uint8_t dataCube2[9] = {0x3c,0x00,0x00,0x3c,0x3c,0x3c,0x3c,0x00,0x00};
  80002b2:	261c      	movs	r6, #28
@@ -332,7 +332,7 @@ void planeCube()
  80002c6:	0018      	movs	r0, r3
  80002c8:	f7ff ffaa 	bl	8000220 <TransmitData>
 	HAL_Delay(time);
- 80002cc:	2064      	movs	r0, #100	; 0x64
+ 80002cc:	20c8      	movs	r0, #200	; 0xc8
  80002ce:	f000 fa6d 	bl	80007ac <HAL_Delay>
 	uint8_t dataCube3[9] = {0x18,0x00,0x00,0x00,0x18,0x18,0x00,0x00,0x00};
  80002d2:	2110      	movs	r1, #16
@@ -349,7 +349,7 @@ void planeCube()
  80002e6:	0018      	movs	r0, r3
  80002e8:	f7ff ff9a 	bl	8000220 <TransmitData>
 	HAL_Delay(time);
- 80002ec:	2064      	movs	r0, #100	; 0x64
+ 80002ec:	20c8      	movs	r0, #200	; 0xc8
  80002ee:	f000 fa5d 	bl	80007ac <HAL_Delay>
 	uint8_t dataCube4[9] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
  80002f2:	1d3b      	adds	r3, r7, #4
@@ -365,7 +365,7 @@ void planeCube()
  8000304:	0018      	movs	r0, r3
  8000306:	f7ff ff8b 	bl	8000220 <TransmitData>
 	HAL_Delay(time);
- 800030a:	2064      	movs	r0, #100	; 0x64
+ 800030a:	20c8      	movs	r0, #200	; 0xc8
  800030c:	f000 fa4e 	bl	80007ac <HAL_Delay>
 	TransmitData(dataCube4, 9, 100);
  8000310:	1d3b      	adds	r3, r7, #4
@@ -374,7 +374,7 @@ void planeCube()
  8000316:	0018      	movs	r0, r3
  8000318:	f7ff ff82 	bl	8000220 <TransmitData>
 	HAL_Delay(time);
- 800031c:	2064      	movs	r0, #100	; 0x64
+ 800031c:	20c8      	movs	r0, #200	; 0xc8
  800031e:	f000 fa45 	bl	80007ac <HAL_Delay>
 	TransmitData(dataCube3, 9, 100);
  8000322:	2110      	movs	r1, #16
@@ -390,7 +390,7 @@ void planeCube()
  8000336:	0018      	movs	r0, r3
  8000338:	f7ff ff72 	bl	8000220 <TransmitData>
 	HAL_Delay(time);
- 800033c:	2064      	movs	r0, #100	; 0x64
+ 800033c:	20c8      	movs	r0, #200	; 0xc8
  800033e:	f000 fa35 	bl	80007ac <HAL_Delay>
 	TransmitData(dataCube1, 9, 100);
  8000342:	197b      	adds	r3, r7, r5
@@ -399,7 +399,7 @@ void planeCube()
  8000348:	0018      	movs	r0, r3
  800034a:	f7ff ff69 	bl	8000220 <TransmitData>
 	HAL_Delay(time);
- 800034e:	2064      	movs	r0, #100	; 0x64
+ 800034e:	20c8      	movs	r0, #200	; 0xc8
  8000350:	f000 fa2c 	bl	80007ac <HAL_Delay>
 	TransmitData(dataCube0, 9, 100);
  8000354:	2434      	movs	r4, #52	; 0x34
@@ -409,7 +409,7 @@ void planeCube()
  800035c:	0018      	movs	r0, r3
  800035e:	f7ff ff5f 	bl	8000220 <TransmitData>
 	HAL_Delay(time);
- 8000362:	2064      	movs	r0, #100	; 0x64
+ 8000362:	20c8      	movs	r0, #200	; 0xc8
  8000364:	f000 fa22 	bl	80007ac <HAL_Delay>
 };
  8000368:	46c0      	nop			; (mov r8, r8)
@@ -454,11 +454,11 @@ int main(void)
  8000390:	f000 f88c 	bl	80004ac <MX_GPIO_Init>
   MX_SPI1_Init();
  8000394:	f000 f84c 	bl	8000430 <MX_SPI1_Init>
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
 	  planeCube();
  8000398:	f7ff ff68 	bl	800026c <planeCube>
  800039c:	e7fc      	b.n	8000398 <main+0x14>
@@ -1052,156 +1052,69 @@ void SystemInit(void)
  800065e:	bd80      	pop	{r7, pc}
 
 08000660 <Reset_Handler>:
-
-  .section .text.Reset_Handler
-  .weak Reset_Handler
-  .type Reset_Handler, %function
-Reset_Handler:
-  ldr   r0, =_estack
  8000660:	4813      	ldr	r0, [pc, #76]	; (80006b0 <LoopForever+0x2>)
-  mov   sp, r0          /* set stack pointer */
  8000662:	4685      	mov	sp, r0
-
-/*Check if boot space corresponds to test memory*/
- 
-    LDR R0,=0x00000004
  8000664:	4813      	ldr	r0, [pc, #76]	; (80006b4 <LoopForever+0x6>)
-    LDR R1, [R0]
  8000666:	6801      	ldr	r1, [r0, #0]
-    LSRS R1, R1, #24
  8000668:	0e09      	lsrs	r1, r1, #24
-    LDR R2,=0x1F
  800066a:	4a13      	ldr	r2, [pc, #76]	; (80006b8 <LoopForever+0xa>)
-    CMP R1, R2
  800066c:	4291      	cmp	r1, r2
-    BNE ApplicationStart
  800066e:	d105      	bne.n	800067c <ApplicationStart>
-
- /*SYSCFG clock enable*/
-
-    LDR R0,=0x40021018
  8000670:	4812      	ldr	r0, [pc, #72]	; (80006bc <LoopForever+0xe>)
-    LDR R1,=0x00000001
  8000672:	4913      	ldr	r1, [pc, #76]	; (80006c0 <LoopForever+0x12>)
-    STR R1, [R0]
  8000674:	6001      	str	r1, [r0, #0]
-
-/*Set CFGR1 register with flash memory remap at address 0*/
-    LDR R0,=0x40010000
  8000676:	4813      	ldr	r0, [pc, #76]	; (80006c4 <LoopForever+0x16>)
-    LDR R1,=0x00000000
  8000678:	4913      	ldr	r1, [pc, #76]	; (80006c8 <LoopForever+0x1a>)
-    STR R1, [R0]
  800067a:	6001      	str	r1, [r0, #0]
 
 0800067c <ApplicationStart>:
-
-ApplicationStart:
-/* Copy the data segment initializers from flash to SRAM */
-  ldr r0, =_sdata
  800067c:	4813      	ldr	r0, [pc, #76]	; (80006cc <LoopForever+0x1e>)
-  ldr r1, =_edata
  800067e:	4914      	ldr	r1, [pc, #80]	; (80006d0 <LoopForever+0x22>)
-  ldr r2, =_sidata
  8000680:	4a14      	ldr	r2, [pc, #80]	; (80006d4 <LoopForever+0x26>)
-  movs r3, #0
  8000682:	2300      	movs	r3, #0
-  b LoopCopyDataInit
  8000684:	e002      	b.n	800068c <LoopCopyDataInit>
 
 08000686 <CopyDataInit>:
-
-CopyDataInit:
-  ldr r4, [r2, r3]
  8000686:	58d4      	ldr	r4, [r2, r3]
-  str r4, [r0, r3]
  8000688:	50c4      	str	r4, [r0, r3]
-  adds r3, r3, #4
  800068a:	3304      	adds	r3, #4
 
 0800068c <LoopCopyDataInit>:
-
-LoopCopyDataInit:
-  adds r4, r0, r3
  800068c:	18c4      	adds	r4, r0, r3
-  cmp r4, r1
  800068e:	428c      	cmp	r4, r1
-  bcc CopyDataInit
  8000690:	d3f9      	bcc.n	8000686 <CopyDataInit>
-  
-/* Zero fill the bss segment. */
-  ldr r2, =_sbss
  8000692:	4a11      	ldr	r2, [pc, #68]	; (80006d8 <LoopForever+0x2a>)
-  ldr r4, =_ebss
  8000694:	4c11      	ldr	r4, [pc, #68]	; (80006dc <LoopForever+0x2e>)
-  movs r3, #0
  8000696:	2300      	movs	r3, #0
-  b LoopFillZerobss
  8000698:	e001      	b.n	800069e <LoopFillZerobss>
 
 0800069a <FillZerobss>:
-
-FillZerobss:
-  str  r3, [r2]
  800069a:	6013      	str	r3, [r2, #0]
-  adds r2, r2, #4
  800069c:	3204      	adds	r2, #4
 
 0800069e <LoopFillZerobss>:
-
-LoopFillZerobss:
-  cmp r2, r4
  800069e:	42a2      	cmp	r2, r4
-  bcc FillZerobss
  80006a0:	d3fb      	bcc.n	800069a <FillZerobss>
-
-/* Call the clock system intitialization function.*/
-  bl  SystemInit
  80006a2:	f7ff ffd8 	bl	8000656 <SystemInit>
-/* Call static constructors */
-  bl __libc_init_array
  80006a6:	f001 fb45 	bl	8001d34 <__libc_init_array>
-/* Call the application's entry point.*/
-  bl main
  80006aa:	f7ff fe6b 	bl	8000384 <main>
 
 080006ae <LoopForever>:
-
-LoopForever:
-    b LoopForever
  80006ae:	e7fe      	b.n	80006ae <LoopForever>
-  ldr   r0, =_estack
  80006b0:	20001800 	.word	0x20001800
-    LDR R0,=0x00000004
  80006b4:	00000004 	.word	0x00000004
-    LDR R2,=0x1F
  80006b8:	0000001f 	.word	0x0000001f
-    LDR R0,=0x40021018
  80006bc:	40021018 	.word	0x40021018
-    LDR R1,=0x00000001
  80006c0:	00000001 	.word	0x00000001
-    LDR R0,=0x40010000
  80006c4:	40010000 	.word	0x40010000
-    LDR R1,=0x00000000
  80006c8:	00000000 	.word	0x00000000
-  ldr r0, =_sdata
  80006cc:	20000000 	.word	0x20000000
-  ldr r1, =_edata
  80006d0:	2000000c 	.word	0x2000000c
-  ldr r2, =_sidata
  80006d4:	08001e18 	.word	0x08001e18
-  ldr r2, =_sbss
  80006d8:	2000000c 	.word	0x2000000c
-  ldr r4, =_ebss
  80006dc:	20000090 	.word	0x20000090
 
 080006e0 <ADC1_IRQHandler>:
- * @retval : None
-*/
-    .section .text.Default_Handler,"ax",%progbits
-Default_Handler:
-Infinite_Loop:
-  b Infinite_Loop
  80006e0:	e7fe      	b.n	80006e0 <ADC1_IRQHandler>
 	...
 
