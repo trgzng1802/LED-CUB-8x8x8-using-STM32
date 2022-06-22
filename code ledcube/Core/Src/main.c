@@ -69,6 +69,7 @@ void randomRainCube();
 void aroundEdgeCube();
 void diaedgeCube();
 void numberingCube();
+void torusCube();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -77,7 +78,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == 0)
   {
-	  if (currentEffect < 9) currentEffect++;
+	  if (currentEffect < 10) currentEffect++;
 	  else currentEffect = 0;
   }
   HAL_Delay(200);
@@ -215,8 +216,9 @@ void randomRainCube() //ok
 			layer = 0x80 >> j;
 	    	mergeData(column, layer);
 	    	TransmitData(dataOut);
-	    	HAL_Delay(30);
+	    	HAL_Delay(35);
 	    	}
+	    	HAL_Delay(20);
 	    	clearCube();
 		}
 }
@@ -654,6 +656,30 @@ void numberingCube() //ok
 	HAL_Delay(delay);
 }
 
+void torusCube() {
+	clearCube();
+	for (int i = -7; i < 7; i++) {
+		if (i >= 0) {
+			layer = 0xc0 >> i;
+			column[0] = column[7] = 0x7e;
+			column[1] = column[6] = 0xff;
+			column[2] = column[5] = 0xe7;
+			column[3] = column[4] = 0xc3;
+			mergeData(column, layer);
+			TransmitData(dataOut);
+			HAL_Delay(100);
+		} else {
+			layer = 0x03 << (7 - abs(i));
+			column[0] = column[7] = 0x7e;
+			column[1] = column[6] = 0xff;
+			column[2] = column[5] = 0xe7;
+			column[3] = column[4] = 0xc3;
+			mergeData(column, layer);
+			TransmitData(dataOut);
+			HAL_Delay(100);
+		}
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -724,6 +750,9 @@ int main(void)
 			break;
 		case 9:
 			numberingCube();
+			break;
+		case 10:
+			torusCube();
 			break;
 		default:
 			break;
