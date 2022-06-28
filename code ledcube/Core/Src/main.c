@@ -31,7 +31,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define TIME 150
 #define delay 500
 /* USER CODE END PD */
 
@@ -43,12 +42,14 @@
 /* Private variables ---------------------------------------------------------*/
  SPI_HandleTypeDef hspi1;
 
+UART_HandleTypeDef huart1;
+
 /* USER CODE BEGIN PV */
 uint8_t layer;
 uint8_t column[8];
 uint8_t dataOut[9];
-int currentEffect;
-
+int currentEffect = 0;
+uint8_t rxData;
 
 /* USER CODE END PV */
 
@@ -56,29 +57,39 @@ int currentEffect;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
+static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 void TransmitData(uint8_t* data);
 void mergeData(uint8_t column_data[],uint8_t layer_data);
 void lightCube();
 void clearCube();
 void growShrinkCube();
-void upperCube();
+void planeZCube();
 void diagonalCube();
-void sliderCube();
+void planeYCube();
+void planeXCube();
 void randomRainCube();
 void aroundEdgeCube();
 void diaedgeCube();
 void numberingCube();
-void torusCube();
+void matlabIconCube();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if (huart -> Instance == huart1.Instance){
+	  if (rxData < 55) currentEffect = rxData - 48;
+	  HAL_UART_Receive_IT(&huart1,&rxData, 1);
+  }
+}
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == 0)
   {
-	  if (currentEffect < 10) currentEffect++;
+	  if (currentEffect < 7) currentEffect++;
 	  else currentEffect = 0;
   }
   HAL_Delay(200);
@@ -87,7 +98,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 void TransmitData(uint8_t* data) //ok
 {
 	HAL_GPIO_WritePin(LATCH_PIN_GPIO_Port, LATCH_PIN_Pin, GPIO_PIN_RESET);
-	HAL_SPI_Transmit(&hspi1,data, 9, 10);
+	HAL_SPI_Transmit(&hspi1,data, 9, 100);
 	HAL_GPIO_WritePin(LATCH_PIN_GPIO_Port, LATCH_PIN_Pin, GPIO_PIN_SET);
 }
 
@@ -123,21 +134,6 @@ void clearCube() //ok
 	}
 	mergeData(column, layer);
 	TransmitData(dataOut);
-}
-
-void upperCube() //ok
-{
-	for (int i = 0; i < 8; i++)
-	{
-		column[i] = 0xff;
-	}
-	for (int i = 0; i < 8; i++)
-	{
-		layer = 0x01 << i;
-		mergeData(column, layer);
-		TransmitData(dataOut);
-		HAL_Delay(delay);
-	}
 }
 
 void diagonalCube() //ok
@@ -183,49 +179,87 @@ void diagonalCube() //ok
 	clearCube();
 }
 
-void sliderCube() //ok
+void planeZCube() //ok
 {
-	layer = 0xff;
 	for (int i = 0; i < 8; i++)
 	{
-		for (int j = 0; j < 8; j++)
-		{
-			column[j] = 0x01 << i;
-		}
-		mergeData(column, layer);
-		TransmitData(dataOut);
-		HAL_Delay(delay);
+		column[i] = 0xff;
 	}
+	for (int i = 8; i > -8; i--)
+	{
+		if (i >= 0) {
+			layer = 0x01 << i;
+			mergeData(column, layer);
+			TransmitData(dataOut);
+			HAL_Delay(delay*0.25);
+		} else {
+			layer = 0x80 >> (7 + i);
+			mergeData(column, layer);
+			TransmitData(dataOut);
+			HAL_Delay(delay*0.25);
+		}
+	}
+	clearCube();
+}
+
+void planeYCube() //ok
+{
+	layer = 0xff;
+	for (int i = 8; i > -8; i--)
+	{
+		if (i >= 0) {
+			for (int j = 0; j < 8; j++)
+			{
+				column[j] = 0x01 << i;
+			}
+			mergeData(column, layer);
+			TransmitData(dataOut);
+			HAL_Delay(delay*0.25);
+		} else {
+			for (int j = 0; j < 8; j++)
+			{
+				column[j] = 0x80 >> (7 + i);
+			}
+			mergeData(column, layer);
+			TransmitData(dataOut);
+			HAL_Delay(delay*0.25);
+		}
+	}
+	clearCube();
+}
+
+void planeXCube() {
+		for (int i = -7; i < 8; i++)
+		{
+			layer = 0xff;
+			column[abs(i)] = 0xff;
+			mergeData(column, layer);
+			TransmitData(dataOut);
+			HAL_Delay(delay*0.25);
+			clearCube();
+		}
 }
 
 void randomRainCube() //ok
 {
 
 	srand(HAL_GetTick());
-	int randomColumn[8];
-
-		for(int j = 0; j < 8; j++)
-		{
-			randomColumn[j] = rand() % 8;
-		}
-		for (int i = 0; i < 8; i++)
-		{
-			column[randomColumn[i]] = 0x01 << rand() % 8;
-	    	for (int j = 0; j < 8; j++)
-	    	{
+	for (int i = 0; i < 8; i++) {
+		column[rand() % 8] = 0x01 << rand() % 8;
+	    for (int j = 0; j < 8; j++) {
 			layer = 0x80 >> j;
 	    	mergeData(column, layer);
 	    	TransmitData(dataOut);
 	    	HAL_Delay(35);
-	    	}
-	    	HAL_Delay(20);
-	    	clearCube();
-		}
+	    }
+	    clearCube();
+	    HAL_Delay(delay*0.2);
+	}
 }
 
 void growShrinkCube() //ok
 {
-
+	int TIME = 150;
 	uint8_t data1[9] = {0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
 	uint8_t data2[9] = {0x7e,0x00,0x7e,0x7e,0x7e,0x7e,0x7e,0x7e,0x00};
 	uint8_t data3[9] = {0x3c,0x00,0x00,0x3c,0x3c,0x3c,0x3c,0x00,0x00};
@@ -656,29 +690,31 @@ void numberingCube() //ok
 	HAL_Delay(delay);
 }
 
-void torusCube() {
-	clearCube();
-	for (int i = -7; i < 7; i++) {
-		if (i >= 0) {
-			layer = 0xc0 >> i;
-			column[0] = column[7] = 0x7e;
-			column[1] = column[6] = 0xff;
-			column[2] = column[5] = 0xe7;
-			column[3] = column[4] = 0xc3;
-			mergeData(column, layer);
-			TransmitData(dataOut);
-			HAL_Delay(100);
-		} else {
-			layer = 0x03 << (7 - abs(i));
-			column[0] = column[7] = 0x7e;
-			column[1] = column[6] = 0xff;
-			column[2] = column[5] = 0xe7;
-			column[3] = column[4] = 0xc3;
-			mergeData(column, layer);
-			TransmitData(dataOut);
-			HAL_Delay(100);
-		}
-	}
+void matlabIconCube() {
+	//layer 1
+	uint8_t data_layer1[9] = {0x01,0x81,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+	TransmitData(data_layer1);
+	//layer 2
+	uint8_t data_layer2[9] = {0x02,0x42,0x81,0x00,0x00,0x00,0x00,0x00,0x00};
+	TransmitData(data_layer2);
+	//layer 3
+	uint8_t data_layer3[9] = {0x04,0x24,0x42,0x81,0x00,0x00,0xE0,0xE0,0xE3};
+	TransmitData(data_layer3);
+	//layer 4
+	uint8_t data_layer4[9] = {0x08,0x18,0x24,0x42,0x81,0xF0,0x10,0x17,0x14};
+	TransmitData(data_layer4);
+	//layer 5
+	uint8_t data_layer5[9] = {0x10,0x00,0x18,0x24,0x7A,0x09,0x07,0x08,0x08};
+	TransmitData(data_layer5);
+	//layer 6
+	uint8_t data_layer6[9] = {0x20,0x00,0x00,0x18,0x24,0x06,0x08,0x00,0x00};
+	TransmitData(data_layer6);
+	//layer 7
+	uint8_t data_layer7[9] = {0x40,0x00,0x00,0x00,0x18,0x08,0x00,0x00,0x00};
+	TransmitData(data_layer7);
+	//layer 8
+	uint8_t data_layer8[9] = {0x80,0x00,0x00,0x00,0x18,0x08,0x00,0x00,0x00};
+	TransmitData(data_layer8);
 }
 /* USER CODE END 0 */
 
@@ -710,7 +746,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_SPI1_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  HAL_UART_Receive_IT(&huart1, &rxData, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -722,37 +760,30 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	 switch (currentEffect) {
 		case 0:
-			lightCube();
-			break;
-		case 1:
-			clearCube();
-			break;
-		case 2:
 			growShrinkCube();
 			break;
-		case 3:
-			upperCube();
+		case 1:
+			planeXCube();
+			planeYCube();
+			planeZCube();
 			break;
-		case 4:
-			sliderCube();
-			break;
-		case 5:
+		case 2:
 			diagonalCube();
 			break;
-		case 6:
+		case 3:
 			randomRainCube();
 			break;
-		case 7:
+		case 4:
 			aroundEdgeCube();
 			break;
-		case 8:
+		case 5:
 			diaedgeCube();
 			break;
-		case 9:
+		case 6:
 			numberingCube();
 			break;
-		case 10:
-			torusCube();
+		case 7:
+			matlabIconCube();
 			break;
 		default:
 			break;
@@ -769,6 +800,7 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
@@ -793,6 +825,12 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1;
+  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
   }
@@ -835,6 +873,41 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 9600;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
 
 }
 
