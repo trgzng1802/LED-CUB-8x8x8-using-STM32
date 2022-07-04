@@ -61,7 +61,7 @@ main-build: cube8.elf secondary-outputs
 
 # Tool invocations
 cube8.elf cube8.map: $(OBJS) $(USER_OBJS) D:\LED\ CUBE\ 8x8x8\LED\ CUBE\ 8x8x8\ STM32\code\ ledcube\STM32F042F6PX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "cube8.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\code ledcube\STM32F042F6PX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cube8.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "cube8.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\code ledcube\STM32F042F6PX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cube8.map" -Wl,--gc-sections -static -L"../"D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\code ledcube\Libs" --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
