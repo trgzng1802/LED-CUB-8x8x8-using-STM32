@@ -9,6 +9,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include Libs/subdir.mk
 -include Drivers/STM32F0xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
@@ -52,6 +53,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 cube8.list \
 
+OBJCOPY_HEX += \
+cube8.hex \
+
 
 # All Target
 all: main-build
@@ -61,7 +65,7 @@ main-build: cube8.elf secondary-outputs
 
 # Tool invocations
 cube8.elf cube8.map: $(OBJS) $(USER_OBJS) D:\LED\ CUBE\ 8x8x8\LED\ CUBE\ 8x8x8\ STM32\code\ ledcube\STM32F042F6PX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "cube8.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\code ledcube\STM32F042F6PX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cube8.map" -Wl,--gc-sections -static -L"../"D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\code ledcube\Libs" --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "cube8.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\code ledcube\STM32F042F6PX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cube8.map" -Wl,--gc-sections -static -L"D:\LED CUBE 8x8x8\LED CUBE 8x8x8 STM32\code ledcube\Libs" --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -75,12 +79,17 @@ cube8.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+cube8.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "cube8.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) cube8.elf cube8.list cube8.map default.size.stdout
+	-$(RM) cube8.elf cube8.hex cube8.list cube8.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

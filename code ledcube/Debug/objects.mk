@@ -5,5 +5,5 @@
 
 USER_OBJS :=
 
-LIBS := -l"D:/LED CUBE 8x8x8/LED CUBE 8x8x8 STM32/code ledcube/Libs"
+LIBS :=
 

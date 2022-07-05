@@ -22,19 +22,17 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdlib.h"
-#include "merge_data.h"
-#include "transmit_data.h"
-#include "light_cube.h"
+#include "button.h"
+#include "led_cube_handle.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define delay 500
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -48,12 +46,9 @@
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-uint8_t layer;
-uint8_t column[8];
-uint8_t dataOut[9];
-int currentEffect = 0;
-uint8_t rxData;
 
+uint8_t rxData;
+Btn_Typedef button1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -62,635 +57,10 @@ static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
-//void TransmitData(uint8_t* data);
-//void mergeData(uint8_t column_data[],uint8_t layer_data);
-//void lightCube();
-//void clearCube();
-//void growShrinkCube();
-//void planeZCube();
-//void diagonalCube();
-//void planeYCube();
-//void planeXCube();
-//void randomRainCube();
-//void aroundEdgeCube();
-//void diaedgeCube();
-//void numberingCube();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-  if (huart -> Instance == huart1.Instance){
-	  if (rxData < 55) currentEffect =  rxData - 48;
-	  HAL_UART_Receive_IT(&huart1,&rxData, 1);
-  }
-}
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == 0)
-  {
-	  if (currentEffect < 7) currentEffect++;
-	  else currentEffect = 0;
-  }
-  HAL_Delay(200);
-}
-
-//void TransmitData(uint8_t* data) //ok
-//{
-//	HAL_GPIO_WritePin(LATCH_PIN_GPIO_Port, LATCH_PIN_Pin, GPIO_PIN_RESET);
-//	HAL_SPI_Transmit(&hspi1,data, 9, 100);
-//	HAL_GPIO_WritePin(LATCH_PIN_GPIO_Port, LATCH_PIN_Pin, GPIO_PIN_SET);
-//}
-//
-//void mergeData(uint8_t column_data[], uint8_t layer_data) //ok
-//{
-//	dataOut[0] = layer_data;
-//	for (int i = 1; i < 9; i++)
-//	{
-//		dataOut[i] = column_data[i-1];
-//	}
-//}
-
-//void lightCube() //ok
-//{
-//	for (int i = 0;  i < 8; i++)
-//	{
-//		for (int j = 0; j < 8; j++)
-//		{
-//			column[i] = 0xff;
-//		}
-//		layer = 0x80 >> i;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//	}
-//}
-
-//void clearCube() //ok
-//{
-//	layer = 0x00;
-//	for (int i = 0; i < 8; i ++)
-//	{
-//		column[i] = 0x00;
-//	}
-//	mergeData(column, layer);
-//	TransmitData(dataOut);
-//}
-//
-//void diagonalCube() //ok
-//{
-//	layer = 0x18;
-//	for (int i = 3; i < 5; i++)
-//	{
-//		column[i] = 0x18;
-//	}
-//	mergeData(column, layer);
-//	TransmitData(dataOut);
-//	HAL_Delay(delay/2);
-//	clearCube();
-//
-//	layer = 0x24;
-//	for (int i = 2; i < 6; i++)
-//	{
-//		column[i] = 0x3c;
-//	}
-//	mergeData(column, layer);
-//	TransmitData(dataOut);
-//	HAL_Delay(delay/2);
-//	clearCube();
-//
-//	layer = 0x42;
-//	for (int i = 1; i < 7; i++)
-//	{
-//		column[i] = 0x7e;
-//	}
-//	mergeData(column, layer);
-//	TransmitData(dataOut);
-//	HAL_Delay(delay/2);
-//	clearCube();
-//
-//	layer = 0x81;
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i]=  0xff;
-//	}
-//	mergeData(column, layer);
-//	TransmitData(dataOut);
-//	HAL_Delay(delay/2);
-//	clearCube();
-//}
-//
-//void planeZCube() //ok
-//{
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i] = 0xff;
-//	}
-//	for (int i = 8; i > -8; i--)
-//	{
-//		if (i >= 0) {
-//			layer = 0x01 << i;
-//			mergeData(column, layer);
-//			TransmitData(dataOut);
-//			HAL_Delay(delay*0.25);
-//		} else {
-//			layer = 0x80 >> (7 + i);
-//			mergeData(column, layer);
-//			TransmitData(dataOut);
-//			HAL_Delay(delay*0.25);
-//		}
-//	}
-//	clearCube();
-//}
-//
-//void planeYCube() //ok
-//{
-//	layer = 0xff;
-//	for (int i = 8; i > -8; i--)
-//	{
-//		if (i >= 0) {
-//			for (int j = 0; j < 8; j++)
-//			{
-//				column[j] = 0x01 << i;
-//			}
-//			mergeData(column, layer);
-//			TransmitData(dataOut);
-//			HAL_Delay(delay*0.25);
-//		} else {
-//			for (int j = 0; j < 8; j++)
-//			{
-//				column[j] = 0x80 >> (7 + i);
-//			}
-//			mergeData(column, layer);
-//			TransmitData(dataOut);
-//			HAL_Delay(delay*0.25);
-//		}
-//	}
-//	clearCube();
-//}
-//
-//void planeXCube() {
-//		for (int i = -7; i < 8; i++)
-//		{
-//			layer = 0xff;
-//			column[abs(i)] = 0xff;
-//			mergeData(column, layer);
-//			TransmitData(dataOut);
-//			HAL_Delay(delay*0.25);
-//			clearCube();
-//		}
-//}
-//
-//void randomRainCube() //ok
-//{
-//
-//	srand(HAL_GetTick());
-//	for (int i = 0; i < 8; i++) {
-//		column[rand() % 8] = 0x01 << rand() % 8;
-//	    for (int j = 0; j < 8; j++) {
-//			layer = 0x80 >> j;
-//	    	mergeData(column, layer);
-//	    	TransmitData(dataOut);
-//	    	HAL_Delay(35);
-//	    }
-//	    clearCube();
-//	    HAL_Delay(delay*0.2);
-//	}
-//}
-//
-//void growShrinkCube() //ok
-//{
-//	int TIME = 150;
-//	uint8_t data1[9] = {0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
-//	uint8_t data2[9] = {0x7e,0x00,0x7e,0x7e,0x7e,0x7e,0x7e,0x7e,0x00};
-//	uint8_t data3[9] = {0x3c,0x00,0x00,0x3c,0x3c,0x3c,0x3c,0x00,0x00};
-//	uint8_t data4[9] = {0x18,0x00,0x00,0x00,0x18,0x18,0x00,0x00,0x00};
-//	TransmitData(data1);
-//	HAL_Delay(TIME);
-//	TransmitData(data2);
-//	HAL_Delay(TIME);
-//	TransmitData(data3);
-//	HAL_Delay(TIME);
-//	TransmitData(data4);
-//	HAL_Delay(TIME);
-//	TransmitData(data3);
-//	HAL_Delay(TIME);
-//	TransmitData(data2);
-//	HAL_Delay(TIME);
-//	TransmitData(data1);
-//	HAL_Delay(TIME);
-//}
-//
-//void aroundEdgeCube() //ok
-//{
-//		//layer 1
-//		layer = 0x81;
-//		column[0] = column[7] = 0xff;
-//		for (int i = 1; i < 7; i++)
-//		{
-//			column[i] = 0x81;
-//		}
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(0);
-//		//layer 2- 7
-//		layer = 0x7e;
-//		column[0] = column[7] = 0x81;
-//		for (int i = 1; i < 7; i++)
-//		{
-//			column[i] = 0x00;
-//		}
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(0);
-//}
-//
-//void diaedgeCube() //ok
-//{
-//	int hold = 2;
-//	//layer 1-8
-//	layer = 0x81;
-//	column[0] = column[7] = 0xff;
-//	for (int i = 1; i < 7; i++) {
-//		column[i] = 0x81;
-//	}
-//	mergeData(column, layer);
-//	TransmitData(dataOut);
-//	HAL_Delay(hold);
-//	clearCube();
-//
-//	//layer 2-7
-//	layer = 0x42;
-//	column[0] = column[7] = 0x81;
-//	column[1] = column[6] = 0x42;
-//	for (int i = 2; i < 6; i++) {
-//		column[i] = 0x00;
-//	}
-//	mergeData(column, layer);
-//	TransmitData(dataOut);
-//	HAL_Delay(hold);
-//	clearCube();
-//
-//	//layer 3-6
-//	layer = 0x24;
-//	column[0] = column[7] = 0x81;
-//	column[1] = column[6] = column[3] = column[4] = 0x00;
-//	column[2] = column[5] = 0x24;
-//	mergeData(column, layer);
-//	TransmitData(dataOut);
-//	HAL_Delay(hold);
-//	clearCube();
-//
-//	//layer 4-5
-//	layer = 0x18;
-//	column[3] =column[4] = 0x18;
-//	column[0] = column[7] = 0x81;
-//	column[1] = column[2] = column[5] = column[6] = 0x00;
-//	mergeData(column, layer);
-//	TransmitData(dataOut);
-//	HAL_Delay(hold);
-//	clearCube();
-//}
-//
-//void numberingCube() //ok
-//{
-//	int x = 0;
-//	int y = 40;
-//	clearCube();
-//	//digit 0
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i] = 0x3c;
-//		layer = 0x81;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x66;
-//		layer = 0x42;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xc3;
-//		layer = 0x3c;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//		clearCube();
-//		HAL_Delay(y);
-//	}
-//	HAL_Delay(delay);
-//	//digit 1
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i] = 0xff;
-//		layer = 0x01;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x98;
-//		layer = 0x08;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xd8;
-//		layer = 0x10;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x78;
-//		layer = 0x20;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x38;
-//		layer = 0x40;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x18;
-//		layer = 0x86;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//		clearCube();
-//
-//		HAL_Delay(y);
-//	}
-//	HAL_Delay(delay);
-//	//digit 2
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i] = 0x3c;
-//		layer = 0x80;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x66;
-//		layer = 0x40;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xc6;
-//		layer = 0x20;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x06;
-//		layer = 0x10;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x0c;
-//		layer = 0x08;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x18;
-//		layer = 0x04;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//
-//		column[i] = 0x70;
-//		layer = 0x02;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xff;
-//		layer = 0x01;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//		clearCube();
-//
-//		HAL_Delay(y);
-//	}
-//	HAL_Delay(delay);
-//	//digit 3
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i] = 0x7e;
-//		layer = 0x81;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xe7;
-//		layer = 0x42;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xc3;
-//		layer = 0x24;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x06;
-//		layer = 0x18;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//		clearCube();
-//
-//		HAL_Delay(y);
-//	}
-//	HAL_Delay(delay);
-//	//digit 4
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i] = 0x06;
-//		layer = 0xf3;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xff;
-//		layer = 0x0c;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		for (int j = 0; j < 4; j++)
-//		{
-//		column[i] = 0x08 << j;
-//		layer = 0x80 >> j;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//		}
-//		clearCube();
-//		HAL_Delay(y);
-//	}
-//	HAL_Delay(delay);
-//	//digit 5
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i] = 0xff;
-//		layer = 0xc0;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xc0;
-//		layer = 0x20;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xfe;
-//		layer = 0x10;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x03;
-//		layer = 0x0c;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x83;
-//		layer = 0x02;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x7e;
-//		layer = 0x01;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//		clearCube();
-//		HAL_Delay(y);
-//	}
-//	HAL_Delay(delay);
-//	//digit 6
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i] = 0x7e;
-//		layer = 0x81;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xc3;
-//		layer = 0x4e;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xc0;
-//		layer = 0x20;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xfe;
-//		layer = 0x10;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//		clearCube();
-//		HAL_Delay(y);
-//	}
-//	HAL_Delay(delay);
-//	//digit 7
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i] = 0x7f;
-//		layer = 0xc0;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		for (int j = 0; j < 6; j++)
-//		{
-//			column[i] = 0x03 << j;
-//			layer = 0x20 >> j;
-//			mergeData(column, layer);
-//			TransmitData(dataOut);
-//			HAL_Delay(x);
-//		}
-//		clearCube();
-//		HAL_Delay(y);
-//	}
-//	HAL_Delay(delay);
-//	//digit 8
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i] = 0xc3;
-//		layer = 0x66;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x7e;
-//		layer = 0x99;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//		clearCube();
-//		HAL_Delay(y);
-//	}
-//	HAL_Delay(delay);
-//	//digit 9
-//	for (int i = 0; i < 8; i++)
-//	{
-//		column[i] = 0x7e;
-//		layer = 0x81;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xc3;
-//		layer = 0x60;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0xff;
-//		layer = 0x10;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x7f;
-//		layer = 0x08;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x03;
-//		layer = 0x04;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//
-//		column[i] = 0x83;
-//		layer = 0x02;
-//		mergeData(column, layer);
-//		TransmitData(dataOut);
-//		HAL_Delay(x);
-//		clearCube();
-//		HAL_Delay(y);
-//	}
-//	HAL_Delay(delay);
-//}
 
 /* USER CODE END 0 */
 
@@ -710,6 +80,7 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
+  Btn_Init(&button1, GPIOA, GPIO_PIN_1);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -724,7 +95,6 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UART_Receive_IT(&huart1, &rxData, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -734,7 +104,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  lightCube();
+	  Btn_Handle(&button1);
+	  Led_cube_Handle(currentEffect, hspi1);
   }
   /* USER CODE END 3 */
 }
@@ -876,7 +247,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : PA1 */
   GPIO_InitStruct.Pin = GPIO_PIN_1;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
@@ -886,10 +257,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(LATCH_PIN_GPIO_Port, &GPIO_InitStruct);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI0_1_IRQn, 2, 0);
-  HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
 
 }
 

@@ -1,6 +1,8 @@
 #ifndef _TRANSMIT_DATA_H_
 #define _TRANSMIT_DATA_H_
+#include "main.h"
+#include "stdint.h"
 
-void TransmitData(uint8_t column_data[], uint8_t layer_data);
+void TransmitData(uint8_t column_data[], uint8_t layer_data, SPI_HandleTypeDef hspi1);
 
 #endif

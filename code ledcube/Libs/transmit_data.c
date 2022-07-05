@@ -1,9 +1,9 @@
-#include "stm32f0xx_hal.h"
 #include "transmit_data.h"
-#include "stm32f0xx_hal_gpio.h"
 
-void TransmitData(uint8_t column_data[], uint8_t layer_data) //ok
+
+void TransmitData(uint8_t column_data[], uint8_t layer_data,SPI_HandleTypeDef hspi1) //ok
 {
+
 	uint8_t dataOut[9];
 	dataOut[0] = layer_data;
 	for (int i = 1; i < 9; i++)

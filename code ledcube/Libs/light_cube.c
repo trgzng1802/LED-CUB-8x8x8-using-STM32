@@ -1,9 +1,8 @@
 #include "light_cube.h"
-#include "merge_data.h"
-#include "transmit_data.h"
 
-void lightCube()
+void lightCube(SPI_HandleTypeDef hspi1)
 {
+	uint8_t column[8], layer;
 	for (int i = 0;  i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
@@ -11,7 +10,6 @@ void lightCube()
 			column[i] = 0xff;
 		}
 		layer = 0x80 >> i;
-		mergeData(column, layer);
-		TransmitData(dataOut);
+		TransmitData(column, layer,hspi1);
 	}
 }

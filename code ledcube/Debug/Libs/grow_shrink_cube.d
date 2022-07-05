@@ -1,4 +1,5 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+Libs/grow_shrink_cube.o: ../Libs/grow_shrink_cube.c \
+ ../Libs/grow_shrink_cube.h ../Core/Inc/main.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h \
  ../Core/Inc/stm32f0xx_hal_conf.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h \
@@ -28,15 +29,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi_ex.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h \
- D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/button.h \
- D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/led_cube_handle.h \
- D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/grow_shrink_cube.h \
- D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/led_cube_handle.h \
- D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/transmit_data.h \
- D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/plane_cube.h \
- D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/clear_cube.h \
- D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/light_cube.h \
- D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/button.h
+ ../Libs/led_cube_handle.h ../Libs/plane_cube.h ../Libs/clear_cube.h \
+ ../Libs/transmit_data.h ../Libs/light_cube.h ../Libs/button.h
+../Libs/grow_shrink_cube.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:
 ../Core/Inc/stm32f0xx_hal_conf.h:
@@ -67,12 +62,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi_ex.h:
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h:
-D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/button.h:
-D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/led_cube_handle.h:
-D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/grow_shrink_cube.h:
-D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/led_cube_handle.h:
-D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/transmit_data.h:
-D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/plane_cube.h:
-D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/clear_cube.h:
-D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/light_cube.h:
-D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/button.h:
+../Libs/led_cube_handle.h:
+../Libs/plane_cube.h:
+../Libs/clear_cube.h:
+../Libs/transmit_data.h:
+../Libs/light_cube.h:
+../Libs/button.h:
