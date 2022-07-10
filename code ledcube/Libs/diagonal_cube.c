@@ -1,47 +1,95 @@
 #include "diagonal_cube.h"
 
-void DiagonalCube(SPI_HandleTypeDef hspi1)
+size_layer_t size_layer;
+static uint8_t layer_diagonal, column_diagonal[8];
+static uint32_t time_start = 0;
+const uint32_t time_todo_diagonal = 150;
+
+void DiagonalCube_Handle(SPI_HandleTypeDef hspi1)
 {
-	uint8_t layer, column[8] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-	layer = 0x18;
-	static uint32_t time_start;
-	const uint32_t time_todo = 250;
-	for (int i = 3; i < 5; i++)
-	{
-		column[i] = 0x18;
-	}
-	TransmitData(column, layer, hspi1);
-	time_start = HAL_GetTick();
-	start1: if (HAL_GetTick() - time_start < time_todo) goto start1;
-	clearCube(hspi1);
 
-	layer = 0x24;
-	for (int i = 2; i < 6; i++)
+	switch (size_layer)
 	{
-		column[i] = 0x3c;
+		case SMALLEST:
+			if (HAL_GetTick() - time_start >= time_todo_diagonal)
+			{
+				layer_diagonal = 0x18;
+				for (int i = 3; i < 5; i++)
+				{
+					column_diagonal[i] = 0x18;
+				}
+				TransmitData(column_diagonal, layer_diagonal, hspi1);
+				for (int i = 0; i < 8; i++)
+				{
+					column_diagonal[i] = 0;
+				}
+				size_layer = MEDIUM;
+				time_start = HAL_GetTick();
+			}
+			break;
+		case MEDIUM:
+			if (HAL_GetTick() - time_start >= time_todo_diagonal)
+			{
+				layer_diagonal = 0x24;
+				for (int i = 2; i < 6; i++)
+				{
+					column_diagonal[i] = 0x3c;
+				}
+				TransmitData(column_diagonal, layer_diagonal, hspi1);
+				for (int i = 0; i < 8; i++)
+				{
+					column_diagonal[i] = 0;
+				}
+				size_layer = LARGE;
+				time_start = HAL_GetTick();
+			}
+			break;
+		case LARGE:
+			if (HAL_GetTick() - time_start >= time_todo_diagonal)
+			{
+				layer_diagonal = 0x42;
+				for (int i = 1; i < 7; i++)
+				{
+					column_diagonal[i] = 0x7e;
+				}
+				TransmitData(column_diagonal, layer_diagonal, hspi1);
+				for (int i = 0; i < 8; i++)
+				{
+					column_diagonal[i] = 0;
+				}
+				size_layer = LARGEST;
+				time_start = HAL_GetTick();
+			}
+			break;
+		case LARGEST:
+			if (HAL_GetTick() - time_start >= time_todo_diagonal)
+			{
+				layer_diagonal= 0x81;
+				for (int i = 0; i < 8; i++)
+				{
+					column_diagonal[i] = 0xff;
+				}
+				TransmitData(column_diagonal, layer_diagonal, hspi1);
+				for (int i = 0; i < 8; i++)
+				{
+					column_diagonal[i] = 0;
+				}
+				size_layer = SMALLEST;
+				time_start = HAL_GetTick();
+			}
+			break;
+		default:
+			break;
 	}
-	TransmitData(column, layer, hspi1);
-	time_start = HAL_GetTick();
-	start2: if (HAL_GetTick() - time_start < time_todo) goto start2;
-	clearCube(hspi1);
+}
 
-	layer = 0x42;
-	for (int i = 1; i < 7; i++)
+void DiagonalCube_Set_State()
+{
+	currentEffect = DIAGONAL_CUBE;
+	for (int j = 0; j < 8; j++)
 	{
-		column[i] = 0x7e;
+		column_diagonal[j] = 0;
 	}
-	TransmitData(column, layer, hspi1);
-	time_start = HAL_GetTick();
-	start3: if (HAL_GetTick() - time_start < time_todo) goto start3;
-	clearCube(hspi1);
-
-	layer = 0x81;
-	for (int i = 0; i < 8; i++)
-	{
-		column[i]=  0xff;
-	}
-	TransmitData(column, layer, hspi1);
-	time_start = HAL_GetTick();
-	start4: if (HAL_GetTick() - time_start < time_todo) goto start4;
-	clearCube(hspi1);
+	layer_diagonal = 0;
+	size_layer = LARGEST;
 }

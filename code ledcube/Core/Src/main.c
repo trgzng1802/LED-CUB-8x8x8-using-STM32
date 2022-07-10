@@ -21,8 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdlib.h"
-#include "button.h"
+
 #include "led_cube_handle.h"
 /* USER CODE END Includes */
 

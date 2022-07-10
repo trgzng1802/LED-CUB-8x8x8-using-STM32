@@ -3,8 +3,17 @@
 
 #include "main.h"
 #include "transmit_data.h"
-#include "clear_cube.h"
+#include "led_cube_handle.h"
 
-void DiagonalCube(SPI_HandleTypeDef hspi1);
+typedef enum
+{
+	SMALLEST,
+	MEDIUM,
+	LARGE,
+	LARGEST,
+} size_layer_t;
+
+void DiagonalCube_Handle(SPI_HandleTypeDef hspi1);
+void DiagonalCube_Set_State();
 
 #endif

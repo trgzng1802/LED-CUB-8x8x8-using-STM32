@@ -1,7 +1,6 @@
 #ifndef _PLANE_CUBE_H_
 #define _PLANE_CUBE_H_
 
-#include "clear_cube.h"
 #include "led_cube_handle.h"
 #include "transmit_data.h"
 #include "main.h"
