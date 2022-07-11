@@ -1,6 +1,6 @@
 #include "led_cube_handle.h"
 
-Cube_Status currentEffect = SWEEP_ALL_LEDS;
+Cube_Status currentEffect = RANDOM_RAIN_CUBE;
 
 void Btn_press_Callback(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 {
@@ -24,11 +24,11 @@ void Btn_press_Callback(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 		CountDownCube_Set_Sate();
 		break;
 	case COUNT_DOWN_CUBE:
+		RandomRainCube_Set_State();
+		break;
+	case RANDOM_RAIN_CUBE:
 		currentEffect = TURN_OFF_ALL_LEDS;
 		break;
-//	case RANDOM_RAIN_CUBE:
-//		currentEffect = TURN_OFF_ALL_LEDS;
-//		break;
 	default:
 		break;
 	}
@@ -58,9 +58,9 @@ void Led_cube_Handle(Cube_Status cube_state,SPI_HandleTypeDef hspi1)
 		case COUNT_DOWN_CUBE:
 			CountDownCube_Handle(hspi1);
 			break;
-//		case RANDOM_RAIN_CUBE:
-//			RandomRainCube_Handle(hspi1);
-//			break;
+		case RANDOM_RAIN_CUBE:
+			RandomRainCube_Handle(4,hspi1);
+			break;
 		default:
 			break;
 	}

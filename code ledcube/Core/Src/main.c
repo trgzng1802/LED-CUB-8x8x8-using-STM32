@@ -1,21 +1,3 @@
-/* USER CODE BEGIN Header */
-/**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2022 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
-/* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
@@ -40,12 +22,10 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
- SPI_HandleTypeDef hspi1;
-
-UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-
+SPI_HandleTypeDef hspi1;
+UART_HandleTypeDef huart1;
 uint8_t rxData;
 Btn_Typedef button1;
 /* USER CODE END PV */
@@ -56,11 +36,19 @@ static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	if (huart->Instance == huart1.Instance)
+	{
+		HAL_UART_Receive_IT(&huart1, &rxData, 1);
+		currentEffect = rxData - 48;
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -94,6 +82,7 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  HAL_UART_Receive_IT(&huart1,&rxData, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -105,6 +94,18 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  Btn_Handle(&button1);
 	  Led_cube_Handle(currentEffect, hspi1);
+//	  for (int i = 0; i < 8; i++)
+//	  {
+//		  for (int j = 0; j < 8; j++)
+//		  {
+//			  for (int k = 0; k < 8; k++)
+//			  {
+//				  DisplayLed(k, j, i, hspi1, 0);
+//
+//				  HAL_Delay(100);
+//			  }
+//		  }
+//	  }
   }
   /* USER CODE END 3 */
 }

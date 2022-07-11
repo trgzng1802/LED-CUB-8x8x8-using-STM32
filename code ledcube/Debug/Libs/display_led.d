@@ -1,7 +1,5 @@
-Libs/plane_cube.o: ../Libs/plane_cube.c ../Libs/plane_cube.h \
- ../Libs/led_cube_handle.h ../Libs/random_rain_cube.h \
- ../Libs/display_led.h ../Core/Inc/main.h \
- ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h \
+Libs/display_led.o: ../Libs/display_led.c ../Libs/display_led.h \
+ ../Core/Inc/main.h ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h \
  ../Core/Inc/stm32f0xx_hal_conf.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_def.h \
@@ -29,14 +27,7 @@ Libs/plane_cube.o: ../Libs/plane_cube.c ../Libs/plane_cube.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi_ex.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h \
- ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h \
- ../Libs/count_down_cube.h ../Libs/transmit_data.h \
- ../Libs/around_edge_cube.h ../Libs/diagonal_cube.h \
- ../Libs/grow_shrink_cube.h ../Libs/light_cube.h ../Libs/clear_cube.h \
- ../Libs/button.h
-../Libs/plane_cube.h:
-../Libs/led_cube_handle.h:
-../Libs/random_rain_cube.h:
+ ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
 ../Libs/display_led.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:
@@ -68,11 +59,3 @@ Libs/plane_cube.o: ../Libs/plane_cube.c ../Libs/plane_cube.h \
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi_ex.h:
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h:
-../Libs/count_down_cube.h:
-../Libs/transmit_data.h:
-../Libs/around_edge_cube.h:
-../Libs/diagonal_cube.h:
-../Libs/grow_shrink_cube.h:
-../Libs/light_cube.h:
-../Libs/clear_cube.h:
-../Libs/button.h:

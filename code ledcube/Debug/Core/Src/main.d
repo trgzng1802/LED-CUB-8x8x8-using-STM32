@@ -31,8 +31,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/led_cube_handle.h \
  D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/random_rain_cube.h \
  D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/led_cube_handle.h \
- D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/transmit_data.h \
+ D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/display_led.h \
  D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/count_down_cube.h \
+ D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/transmit_data.h \
  D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/around_edge_cube.h \
  D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/diagonal_cube.h \
  D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/grow_shrink_cube.h \
@@ -73,8 +74,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/led_cube_handle.h:
 D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/random_rain_cube.h:
 D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/led_cube_handle.h:
-D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/transmit_data.h:
+D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/display_led.h:
 D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/count_down_cube.h:
+D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/transmit_data.h:
 D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/around_edge_cube.h:
 D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/diagonal_cube.h:
 D:/LED\ CUBE\ 8x8x8/LED\ CUBE\ 8x8x8\ STM32/code\ ledcube/Libs/grow_shrink_cube.h:

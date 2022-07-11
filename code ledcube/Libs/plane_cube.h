@@ -3,7 +3,6 @@
 
 #include "led_cube_handle.h"
 #include "transmit_data.h"
-#include "main.h"
 
 typedef enum{
 	OX,

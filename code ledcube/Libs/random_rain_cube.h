@@ -1,12 +1,17 @@
-#ifndef _RANDOM_RAIN_CUBE_H_
-#define _RANDOM_RAIN_CUBE_H_
+/*
+ * random_rain_cube.h
+ *
+ *  Created on: 11 Jul 2022
+ *      Author: phang
+ */
 
-#include "main.h"
-#include "stdlib.h"
+#ifndef RANDOM_RAIN_CUBE_H_
+#define RANDOM_RAIN_CUBE_H_
+
 #include "led_cube_handle.h"
-#include "transmit_data.h"
+#include "display_led.h"
 
-void RandomRainCube_Handle(SPI_HandleTypeDef hspi1);
+void RandomRainCube_Handle(int rain_times,SPI_HandleTypeDef hspi1);
 void RandomRainCube_Set_State();
 
-#endif
+#endif /* RANDOM_RAIN_CUBE_H_ */
