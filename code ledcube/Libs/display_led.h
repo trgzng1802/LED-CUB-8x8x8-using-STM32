@@ -10,6 +10,6 @@
 
 #include "main.h"
 
-void DisplayLed(int x, int y, int z,SPI_HandleTypeDef hspi1,int display);
+void DisplayLed(uint8_t x, uint8_t y, uint8_t  z, uint8_t display);
 
 #endif /* DISPLAY_LED_H_ */

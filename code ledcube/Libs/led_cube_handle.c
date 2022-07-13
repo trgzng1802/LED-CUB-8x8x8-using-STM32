@@ -27,6 +27,9 @@ void Btn_press_Callback(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 		RandomRainCube_Set_State();
 		break;
 	case RANDOM_RAIN_CUBE:
+		SpiralCube_Set_State();
+		break;
+	case SPIRAL_CUBE:
 		currentEffect = TURN_OFF_ALL_LEDS;
 		break;
 	default:
@@ -34,32 +37,35 @@ void Btn_press_Callback(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 	}
 }
 
-void Led_cube_Handle(Cube_Status cube_state,SPI_HandleTypeDef hspi1)
+void Led_cube_Handle(Cube_Status cube_state)
 {
 	switch (cube_state) {
 		case TURN_OFF_ALL_LEDS:
-			clearCube(hspi1);
+			clearCube();
 			break;
 		case TURN_ON_ALL_LEDS:
-			lightCube(hspi1);
+			lightCube();
 			break;
 		case SWEEP_ALL_LEDS:
-			PlaneCube_Handle(hspi1);
+			PlaneCube_Handle();
 			break;
 		case GROW_SHRINK_CUBE:
-			GrowShrinkCube_Handle(hspi1);
+			GrowShrinkCube_Handle();
 			break;
 		case DIAGONAL_CUBE:
-			DiagonalCube_Handle(hspi1);
+			DiagonalCube_Handle();
 			break;
 		case AROUND_EDGE_CUBE:
-			AroundEdgeCube_Handle(hspi1);
+			AroundEdgeCube_Handle();
 			break;
 		case COUNT_DOWN_CUBE:
-			CountDownCube_Handle(hspi1);
+			CountDownCube_Handle();
 			break;
 		case RANDOM_RAIN_CUBE:
-			RandomRainCube_Handle(4,hspi1);
+			RandomRainCube_Handle(4);
+			break;
+		case SPIRAL_CUBE:
+			SpiralCube_Handle();
 			break;
 		default:
 			break;

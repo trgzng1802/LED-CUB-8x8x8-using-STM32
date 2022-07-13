@@ -2,7 +2,7 @@
 #include "main.h"
 #include "transmit_data.h"
 
-void clearCube(SPI_HandleTypeDef hspi1)
+void clearCube()
 {
 	uint8_t column[8], layer;
 	layer = 0x00;
@@ -10,5 +10,5 @@ void clearCube(SPI_HandleTypeDef hspi1)
 	{
 		column[i] = 0x00;
 	}
-	TransmitData(column, layer, hspi1);
+	TransmitData(column, layer);
 }

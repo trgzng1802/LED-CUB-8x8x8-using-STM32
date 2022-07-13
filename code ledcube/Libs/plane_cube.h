@@ -10,7 +10,7 @@ typedef enum{
 	OZ
 } Plane_way_t;
 
-void PlaneCube_Handle(SPI_HandleTypeDef hspi1);
+void PlaneCube_Handle();
 void PlaneCube_Set_State();
 
 #endif

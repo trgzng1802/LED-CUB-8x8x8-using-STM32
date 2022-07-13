@@ -1,7 +1,8 @@
 #include "transmit_data.h"
 
+extern SPI_HandleTypeDef hspi1;
 
-void TransmitData(uint8_t column_data[], uint8_t layer_data,SPI_HandleTypeDef hspi1) //ok
+void TransmitData(uint8_t column_data[], uint8_t layer_data) //ok
 {
 
 	uint8_t dataOut[9];

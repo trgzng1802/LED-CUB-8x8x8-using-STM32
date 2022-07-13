@@ -93,7 +93,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  Btn_Handle(&button1);
-	  Led_cube_Handle(currentEffect, hspi1);
+	  Led_cube_Handle(currentEffect);
 //	  for (int i = 0; i < 8; i++)
 //	  {
 //		  for (int j = 0; j < 8; j++)

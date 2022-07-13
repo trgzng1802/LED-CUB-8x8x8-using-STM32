@@ -1,6 +1,7 @@
 #ifndef _LED_HANDLE_H_
 #define _LED_HANDLE_H_
 
+#include "spiral_cube.h"
 #include "random_rain_cube.h"
 #include "count_down_cube.h"
 #include "around_edge_cube.h"
@@ -24,9 +25,10 @@ typedef enum
 	AROUND_EDGE_CUBE,
 	COUNT_DOWN_CUBE,
 	RANDOM_RAIN_CUBE,
+	SPIRAL_CUBE,
 } Cube_Status;
 
-void Led_cube_Handle(Cube_Status cube_state,SPI_HandleTypeDef hspi1);
+void Led_cube_Handle(Cube_Status cube_state);
 
 extern Cube_Status currentEffect;
 

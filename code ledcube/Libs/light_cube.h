@@ -5,7 +5,7 @@
 #include "transmit_data.h"
 
 /**********************************************************/
-void lightCube(SPI_HandleTypeDef hspi1);
+void lightCube();
 
 /**********************************************************/
 #endif

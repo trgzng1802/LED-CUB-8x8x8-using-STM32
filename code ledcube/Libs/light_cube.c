@@ -1,6 +1,6 @@
 #include "light_cube.h"
 
-void lightCube(SPI_HandleTypeDef hspi1)
+void lightCube()
 {
 	uint8_t column[8], layer;
 	for (int i = 0;  i < 8; i++)
@@ -10,6 +10,6 @@ void lightCube(SPI_HandleTypeDef hspi1)
 			column[i] = 0xff;
 		}
 		layer = 0x80 >> i;
-		TransmitData(column, layer,hspi1);
+		TransmitData(column, layer);
 	}
 }

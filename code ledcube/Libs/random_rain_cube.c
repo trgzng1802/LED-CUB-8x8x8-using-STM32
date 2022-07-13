@@ -5,10 +5,10 @@
  *      Author: phang
  */
 #include "random_rain_cube.h"
-static int x,y,z;
+static uint8_t x,y,z;
 uint32_t time_rain = 0;
 
-void RandomRainCube_Handle(int rain_times,SPI_HandleTypeDef hspi1)
+void RandomRainCube_Handle(uint8_t rain_times)
 {
 	srand(HAL_GetTick());
 	if (HAL_GetTick() - time_rain >= 50)
@@ -20,7 +20,7 @@ void RandomRainCube_Handle(int rain_times,SPI_HandleTypeDef hspi1)
 			time_rain = HAL_GetTick();
 	}
 
-	for (int n = 0; n < rain_times; n++)
+	for (uint8_t n = 0; n < rain_times; n++)
 	{
 		if (z == 7)
 		{
@@ -28,7 +28,7 @@ void RandomRainCube_Handle(int rain_times,SPI_HandleTypeDef hspi1)
 			y = rand() % 8;
 		}
 
-		DisplayLed(x, y, z, hspi1, 0);
+		DisplayLed(x, y, z, 0);
 	}
 
 }

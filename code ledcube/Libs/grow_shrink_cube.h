@@ -13,7 +13,7 @@ typedef enum
 	EIGHT_X_EIGHT_CUBE,
 } SizeCube_t;
 
-void GrowShrinkCube_Handle(SPI_HandleTypeDef hspi1);
+void GrowShrinkCube_Handle();
 void GrowShrinkCube_Set_State();
 
 #endif

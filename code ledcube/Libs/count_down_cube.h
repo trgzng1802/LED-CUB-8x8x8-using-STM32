@@ -20,17 +20,17 @@ typedef enum
 
 } digit_t;
 
-void CountDownCube_Handle(SPI_HandleTypeDef hspi1);
+void CountDownCube_Handle();
 void CountDownCube_Set_Sate();
-void DigitNine(int i,SPI_HandleTypeDef hspi1);
-void DigitEight(int i,SPI_HandleTypeDef hspi1);
-void DigitSeven(int i,SPI_HandleTypeDef hspi1);
-void DigitSix(int i,SPI_HandleTypeDef hspi1);
-void DigitFive(int i,SPI_HandleTypeDef hspi1);
-void DigitFour(int i,SPI_HandleTypeDef hspi1);
-void DigitThree(int i, SPI_HandleTypeDef hspi1);
-void DigitTwo(int i, SPI_HandleTypeDef hspi1);
-void DigitOne(int i, SPI_HandleTypeDef hspi1);
-void DigitZero(int i, SPI_HandleTypeDef hspi1);
+void DigitNine(int i);
+void DigitEight(int i);
+void DigitSeven(int i);
+void DigitSix(int i);
+void DigitFive(int i);
+void DigitFour(int i);
+void DigitThree(int i);
+void DigitTwo(int i);
+void DigitOne(int i);
+void DigitZero(int i);
 
 #endif

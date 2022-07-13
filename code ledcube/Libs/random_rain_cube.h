@@ -11,7 +11,7 @@
 #include "led_cube_handle.h"
 #include "display_led.h"
 
-void RandomRainCube_Handle(int rain_times,SPI_HandleTypeDef hspi1);
+void RandomRainCube_Handle(uint8_t rain_times);
 void RandomRainCube_Set_State();
 
 #endif /* RANDOM_RAIN_CUBE_H_ */

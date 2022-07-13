@@ -5,7 +5,7 @@ static uint8_t layer_diagonal, column_diagonal[8];
 static uint32_t time_start = 0;
 const uint32_t time_todo_diagonal = 150;
 
-void DiagonalCube_Handle(SPI_HandleTypeDef hspi1)
+void DiagonalCube_Handle()
 {
 
 	switch (size_layer)
@@ -18,7 +18,7 @@ void DiagonalCube_Handle(SPI_HandleTypeDef hspi1)
 				{
 					column_diagonal[i] = 0x18;
 				}
-				TransmitData(column_diagonal, layer_diagonal, hspi1);
+				TransmitData(column_diagonal, layer_diagonal);
 				for (int i = 0; i < 8; i++)
 				{
 					column_diagonal[i] = 0;
@@ -35,7 +35,7 @@ void DiagonalCube_Handle(SPI_HandleTypeDef hspi1)
 				{
 					column_diagonal[i] = 0x3c;
 				}
-				TransmitData(column_diagonal, layer_diagonal, hspi1);
+				TransmitData(column_diagonal, layer_diagonal);
 				for (int i = 0; i < 8; i++)
 				{
 					column_diagonal[i] = 0;
@@ -52,7 +52,7 @@ void DiagonalCube_Handle(SPI_HandleTypeDef hspi1)
 				{
 					column_diagonal[i] = 0x7e;
 				}
-				TransmitData(column_diagonal, layer_diagonal, hspi1);
+				TransmitData(column_diagonal, layer_diagonal);
 				for (int i = 0; i < 8; i++)
 				{
 					column_diagonal[i] = 0;
@@ -69,7 +69,7 @@ void DiagonalCube_Handle(SPI_HandleTypeDef hspi1)
 				{
 					column_diagonal[i] = 0xff;
 				}
-				TransmitData(column_diagonal, layer_diagonal, hspi1);
+				TransmitData(column_diagonal, layer_diagonal);
 				for (int i = 0; i < 8; i++)
 				{
 					column_diagonal[i] = 0;

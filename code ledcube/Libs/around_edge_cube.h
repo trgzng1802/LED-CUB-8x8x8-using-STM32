@@ -11,7 +11,7 @@ typedef enum
 	MIDDLE_CUBE
 } position_cube;
 
-void AroundEdgeCube_Handle(SPI_HandleTypeDef hspi1);
+void AroundEdgeCube_Handle();
 void AroundEdgeCube_Set_State();
 
 #endif

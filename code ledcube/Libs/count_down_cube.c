@@ -8,7 +8,7 @@ const uint32_t time_do_countdown = 70;
 const uint32_t time_per_countdown = 0;
 static int i = 0;
 
-void CountDownCube_Handle(SPI_HandleTypeDef hspi1)
+void CountDownCube_Handle()
 {
 	switch (w_number)
 	{
@@ -26,7 +26,7 @@ void CountDownCube_Handle(SPI_HandleTypeDef hspi1)
 				time_start_countdown = HAL_GetTick();
 			}
 
-			DigitNine(i, hspi1);
+			DigitNine(i);
 		break;
 
 		case DIGIT_EIGHT:
@@ -44,7 +44,7 @@ void CountDownCube_Handle(SPI_HandleTypeDef hspi1)
 				time_start_countdown = HAL_GetTick();
 			}
 
-			DigitEight(i, hspi1);
+			DigitEight(i);
 		break;
 
 		case DIGIT_SEVEN:
@@ -62,7 +62,7 @@ void CountDownCube_Handle(SPI_HandleTypeDef hspi1)
 				time_start_countdown = HAL_GetTick();
 			}
 
-			DigitSeven(i, hspi1);
+			DigitSeven(i);
 
 			break;
 
@@ -81,7 +81,7 @@ void CountDownCube_Handle(SPI_HandleTypeDef hspi1)
 				time_start_countdown = HAL_GetTick();
 			}
 
-			DigitSix(i, hspi1);
+			DigitSix(i);
 
 			break;
 
@@ -100,7 +100,7 @@ void CountDownCube_Handle(SPI_HandleTypeDef hspi1)
 				time_start_countdown = HAL_GetTick();
 			}
 
-			DigitFive(i, hspi1);
+			DigitFive(i);
 			break;
 
 		case DIGIT_FOUR:
@@ -118,7 +118,7 @@ void CountDownCube_Handle(SPI_HandleTypeDef hspi1)
 				time_start_countdown = HAL_GetTick();
 			}
 
-			DigitFour(i, hspi1);
+			DigitFour(i);
 			break;
 
 		case DIGIT_THREE:
@@ -136,7 +136,7 @@ void CountDownCube_Handle(SPI_HandleTypeDef hspi1)
 				time_start_countdown = HAL_GetTick();
 			}
 
-			DigitThree(i, hspi1);
+			DigitThree(i);
 			break;
 
 		case DIGIT_TWO:
@@ -154,7 +154,7 @@ void CountDownCube_Handle(SPI_HandleTypeDef hspi1)
 				time_start_countdown = HAL_GetTick();
 			}
 
-			DigitTwo(i, hspi1);
+			DigitTwo(i);
 			break;
 
 		case DIGIT_ONE:
@@ -172,7 +172,7 @@ void CountDownCube_Handle(SPI_HandleTypeDef hspi1)
 				time_start_countdown = HAL_GetTick();
 			}
 
-			DigitOne(i, hspi1);
+			DigitOne(i);
 			break;
 
 		case DIGIT_ZERO:
@@ -190,7 +190,7 @@ void CountDownCube_Handle(SPI_HandleTypeDef hspi1)
 				time_start_countdown = HAL_GetTick();
 			}
 
-			DigitZero(i, hspi1);
+			DigitZero(i);
 			break;
 
 		default:
@@ -209,192 +209,192 @@ void CountDownCube_Set_Sate()
 	}
 }
 
-void DigitNine(int i,SPI_HandleTypeDef hspi1)
+void DigitNine(int i)
 {
 	column_countdown[i] = 0x7e;
-	TransmitData(column_countdown, 0x81, hspi1);
+	TransmitData(column_countdown, 0x81);
 
 	column_countdown[i] = 0xc3;
-	TransmitData(column_countdown, 0x60, hspi1);
+	TransmitData(column_countdown, 0x60);
 
 	column_countdown[i] = 0x03;
-	TransmitData(column_countdown, 0x0c, hspi1);
+	TransmitData(column_countdown, 0x0c);
 
 	column_countdown[i] = 0xff;
-	TransmitData(column_countdown, 0x02, hspi1);
+	TransmitData(column_countdown, 0x02);
 
 	column_countdown[i] = 0x7f;
-	TransmitData(column_countdown, 0x10, hspi1);
+	TransmitData(column_countdown, 0x10);
 
 	column_countdown[i] = 0;
 }
 
-void DigitEight(int i,SPI_HandleTypeDef hspi1)
+void DigitEight(int i)
 {
 	column_countdown[i] = 0xc3;
-	TransmitData(column_countdown, 0x66, hspi1);
+	TransmitData(column_countdown, 0x66);
 
 	column_countdown[i] = 0x7e;
-	TransmitData(column_countdown, 0x99, hspi1);
+	TransmitData(column_countdown, 0x99);
 
 	column_countdown[i] = 0;
 }
 
-void DigitSeven(int i,SPI_HandleTypeDef hspi1)
+void DigitSeven(int i)
 {
 	column_countdown[i] = 0xff;
-	TransmitData(column_countdown, 0xc0, hspi1);
+	TransmitData(column_countdown, 0xc0);
 
 	for (int j = 0; j < 6; j++)
 	{
 		column_countdown[i] = 0x03 << j;
-		TransmitData(column_countdown, 0x20 >> j, hspi1);
+		TransmitData(column_countdown, 0x20 >> j);
 	}
 
 	column_countdown[i] = 0;
 }
 
-void DigitSix(int i,SPI_HandleTypeDef hspi1)
+void DigitSix(int i)
 {
 	column_countdown[i] = 0xff;
-	TransmitData(column_countdown, 0x42, hspi1);
+	TransmitData(column_countdown, 0x42);
 
 	column_countdown[i] = 0xc3;
-	TransmitData(column_countdown, 0x0c, hspi1);
+	TransmitData(column_countdown, 0x0c);
 
 	column_countdown[i] = 0x7f;
-	TransmitData(column_countdown, 0x80, hspi1);
+	TransmitData(column_countdown, 0x80);
 
 	column_countdown[i] = 0xc0;
-	TransmitData(column_countdown, 0x20, hspi1);
+	TransmitData(column_countdown, 0x20);
 
 	column_countdown[i] = 0xfe;
-	TransmitData(column_countdown, 0x10, hspi1);
+	TransmitData(column_countdown, 0x10);
 
 	column_countdown[i] = 0x7e;
-	TransmitData(column_countdown, 0x01, hspi1);
+	TransmitData(column_countdown, 0x01);
 
 	column_countdown[i] = 0;
 }
 
-void DigitFive(int i,SPI_HandleTypeDef hspi1)
+void DigitFive(int i)
 {
 
 	column_countdown[i] = 0xff;
-	TransmitData(column_countdown,0xc0,hspi1);
+	TransmitData(column_countdown,0xc0);
 
 	column_countdown[i] = 0xc0;
-	TransmitData(column_countdown,0x20,hspi1);
+	TransmitData(column_countdown,0x20);
 
 	column_countdown[i] = 0xfe;
-	TransmitData(column_countdown,0x10,hspi1);
+	TransmitData(column_countdown,0x10);
 
 	column_countdown[i] = 0x03;
-	TransmitData(column_countdown,0x0c,hspi1);
+	TransmitData(column_countdown,0x0c);
 
 	column_countdown[i] = 0x83;
-	TransmitData(column_countdown,0x02,hspi1);
+	TransmitData(column_countdown,0x02);
 
 	column_countdown[i] = 0x7e;
-	TransmitData(column_countdown,0x01,hspi1);
+	TransmitData(column_countdown,0x01);
 
 	column_countdown[i] = 0;
 }
 
-void DigitFour(int i,SPI_HandleTypeDef hspi1)
+void DigitFour(int i)
 {
 	column_countdown[i] = 0x06;
-	TransmitData(column_countdown, 0xf3, hspi1);
+	TransmitData(column_countdown, 0xf3);
 
 	column_countdown[i] = 0xff;
-	TransmitData(column_countdown, 0x0c, hspi1);
+	TransmitData(column_countdown, 0x0c);
 
 	for (int j = 0; j < 4; j++)
 	{
 	column_countdown[i] = 0x08 << j;
 	layer_countdown = 0x80 >> j;
-	TransmitData(column_countdown, layer_countdown, hspi1);
+	TransmitData(column_countdown, layer_countdown);
 	}
 
 	column_countdown[i] = 0;
 }
 
-void DigitThree(int i, SPI_HandleTypeDef hspi1)
+void DigitThree(int i)
 {
 	column_countdown[i] = 0x7e;
-	TransmitData(column_countdown, 0x81, hspi1);
+	TransmitData(column_countdown, 0x81);
 
 	column_countdown[i] = 0xe7;
-	TransmitData(column_countdown, 0x42, hspi1);
+	TransmitData(column_countdown, 0x42);
 
 	column_countdown[i] = 0xc3;
-	TransmitData(column_countdown, 0x24, hspi1);
+	TransmitData(column_countdown, 0x24);
 
 	column_countdown[i] = 0x06;
-	TransmitData(column_countdown, 0x18, hspi1);
+	TransmitData(column_countdown, 0x18);
 
 	column_countdown[i] = 0;
 }
 
-void DigitTwo(int i, SPI_HandleTypeDef hspi1)
+void DigitTwo(int i)
 {
 	column_countdown[i] = 0x7e;
-	TransmitData(column_countdown, 0x80, hspi1);
+	TransmitData(column_countdown, 0x80);
 
 	column_countdown[i] = 0xc3;
-	TransmitData(column_countdown, 0x40, hspi1);
+	TransmitData(column_countdown, 0x40);
 
 	column_countdown[i] = 0x83;
-	TransmitData(column_countdown, 0x20, hspi1);
+	TransmitData(column_countdown, 0x20);
 
 	column_countdown[i] = 0x0e;
-	TransmitData(column_countdown, 0x10, hspi1);
+	TransmitData(column_countdown, 0x10);
 
 	column_countdown[i] = 0x1c;
-	TransmitData(column_countdown, 0x08, hspi1);
+	TransmitData(column_countdown, 0x08);
 
 	column_countdown[i] = 0x70;
-	TransmitData(column_countdown, 0x04, hspi1);
+	TransmitData(column_countdown, 0x04);
 
 	column_countdown[i] = 0xff;
-	TransmitData(column_countdown, 0x03, hspi1);
+	TransmitData(column_countdown, 0x03);
 
 	column_countdown[i] = 0;
 }
 
-void DigitOne(int i, SPI_HandleTypeDef hspi1)
+void DigitOne(int i)
 {
 	column_countdown[i] = 0xff;
-	TransmitData(column_countdown, 0x01, hspi1);
+	TransmitData(column_countdown, 0x01);
 
 	column_countdown[i] = 0x98;
-	TransmitData(column_countdown, 0x08, hspi1);
+	TransmitData(column_countdown, 0x08);
 
 	column_countdown[i] = 0xd8;
-	TransmitData(column_countdown, 0x10, hspi1);
+	TransmitData(column_countdown, 0x10);
 
 	column_countdown[i] = 0x78;
-	TransmitData(column_countdown, 0x20, hspi1);
+	TransmitData(column_countdown, 0x20);
 
 	column_countdown[i] = 0x38;
-	TransmitData(column_countdown, 0x40, hspi1);
+	TransmitData(column_countdown, 0x40);
 
 	column_countdown[i] = 0x18;
-	TransmitData(column_countdown, 0x86, hspi1);
+	TransmitData(column_countdown, 0x86);
 
 	column_countdown[i] = 0;
 }
 
-void DigitZero(int i, SPI_HandleTypeDef hspi1)
+void DigitZero(int i)
 {
 	column_countdown[i] = 0x3c;
-	TransmitData(column_countdown, 0x81, hspi1);
+	TransmitData(column_countdown, 0x81);
 
 	column_countdown[i] = 0x66;
-	TransmitData(column_countdown, 0x42, hspi1);
+	TransmitData(column_countdown, 0x42);
 
 	column_countdown[i] = 0xc3;
-	TransmitData(column_countdown, 0x3c, hspi1);
+	TransmitData(column_countdown, 0x3c);
 
 	column_countdown[i] = 0;
 }

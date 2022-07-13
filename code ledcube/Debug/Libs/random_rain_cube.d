@@ -1,6 +1,6 @@
 Libs/random_rain_cube.o: ../Libs/random_rain_cube.c \
  ../Libs/random_rain_cube.h ../Libs/led_cube_handle.h \
- ../Libs/count_down_cube.h ../Core/Inc/main.h \
+ ../Libs/spiral_cube.h ../Libs/count_down_cube.h ../Core/Inc/main.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h \
  ../Core/Inc/stm32f0xx_hal_conf.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h \
@@ -36,6 +36,7 @@ Libs/random_rain_cube.o: ../Libs/random_rain_cube.c \
  ../Libs/display_led.h
 ../Libs/random_rain_cube.h:
 ../Libs/led_cube_handle.h:
+../Libs/spiral_cube.h:
 ../Libs/count_down_cube.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:

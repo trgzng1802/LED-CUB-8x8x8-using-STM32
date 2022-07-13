@@ -3,6 +3,6 @@
 #include "main.h"
 #include "stdint.h"
 
-void TransmitData(uint8_t column_data[], uint8_t layer_data, SPI_HandleTypeDef hspi1);
+void TransmitData(uint8_t column_data[], uint8_t layer_data);
 
 #endif

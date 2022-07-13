@@ -3,7 +3,7 @@
 uint8_t layer_around_edge, column_around_edge[8];
 position_cube position_layer;
 
-void AroundEdgeCube_Handle(SPI_HandleTypeDef hspi1)
+void AroundEdgeCube_Handle()
 {
 	for (int i = 0; i < 8; i++)
 	{
@@ -18,7 +18,7 @@ void AroundEdgeCube_Handle(SPI_HandleTypeDef hspi1)
 			{
 				column_around_edge[i] = 0x81;
 			}
-			TransmitData(column_around_edge, layer_around_edge, hspi1);
+			TransmitData(column_around_edge, layer_around_edge);
 			position_layer = MIDDLE_CUBE;
 			break;
 		case MIDDLE_CUBE:
@@ -28,8 +28,9 @@ void AroundEdgeCube_Handle(SPI_HandleTypeDef hspi1)
 			{
 				column_around_edge[i] = 0;
 			}
-			TransmitData(column_around_edge, layer_around_edge, hspi1);
+			TransmitData(column_around_edge, layer_around_edge);
 			position_layer = TOP_N_BOTTOM_CUBE;
+			break;
 		default:
 			break;
 	}

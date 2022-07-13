@@ -13,7 +13,7 @@ typedef enum
 	LARGEST,
 } size_layer_t;
 
-void DiagonalCube_Handle(SPI_HandleTypeDef hspi1);
+void DiagonalCube_Handle();
 void DiagonalCube_Set_State();
 
 #endif

@@ -1,6 +1,6 @@
 Libs/led_cube_handle.o: ../Libs/led_cube_handle.c \
- ../Libs/led_cube_handle.h ../Libs/random_rain_cube.h \
- ../Libs/display_led.h ../Core/Inc/main.h \
+ ../Libs/led_cube_handle.h ../Libs/spiral_cube.h \
+ ../Libs/random_rain_cube.h ../Libs/display_led.h ../Core/Inc/main.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h \
  ../Core/Inc/stm32f0xx_hal_conf.h \
  ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h \
@@ -35,6 +35,7 @@ Libs/led_cube_handle.o: ../Libs/led_cube_handle.c \
  ../Libs/grow_shrink_cube.h ../Libs/plane_cube.h ../Libs/light_cube.h \
  ../Libs/clear_cube.h ../Libs/button.h
 ../Libs/led_cube_handle.h:
+../Libs/spiral_cube.h:
 ../Libs/random_rain_cube.h:
 ../Libs/display_led.h:
 ../Core/Inc/main.h:

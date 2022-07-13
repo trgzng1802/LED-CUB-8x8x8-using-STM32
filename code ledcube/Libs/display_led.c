@@ -7,19 +7,21 @@
 #include "display_led.h"
 
 uint8_t ICcolumn[8], IClayer;
-int WhichByte, WhichBit, WhichColumn;
+uint8_t WhichByte, WhichBit, WhichColumn;
 uint8_t dataOut[9];
+extern SPI_HandleTypeDef hspi1;
 
-void DisplayLed(int x, int y, int  z, SPI_HandleTypeDef hspi1, int display)
+void DisplayLed(uint8_t x, uint8_t y, uint8_t  z, uint8_t display)
 {
 
 	WhichByte = (((z << 6)+(y << 3) + x) >> 3);
 	WhichBit = ((z << 6) + (y << 3) + x) - (WhichByte << 3);
 	WhichColumn = WhichByte - (z*8);
-	IClayer = 0x01 <<  z;
+	if (z == 8) IClayer = 0xff;
+	else IClayer = 0x01 <<  z;
 	ICcolumn[WhichColumn] = 0x01 << WhichBit;
 	dataOut[0] = IClayer;
-	for (int i = 1; i < 9; i++)
+	for (uint8_t i = 1; i < 9; i++)
 	{
 		dataOut[i] = ICcolumn[i-1];
 	}

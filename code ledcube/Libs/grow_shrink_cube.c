@@ -6,7 +6,7 @@ static uint32_t time_start = 0;
 uint8_t column_growshrink[4][8];
 uint8_t layer_growshrink[4];
 
-void GrowShrinkCube_Handle(SPI_HandleTypeDef hspi1) //ok
+void GrowShrinkCube_Handle() //ok
 {
 	uint8_t temp[8];
 	column_growshrink[0][0] = column_growshrink[0][1] = column_growshrink[0][2] = column_growshrink[0][3] = column_growshrink[0][4] = column_growshrink[0][5] = column_growshrink[0][6] = column_growshrink[0][7] = 0xff;
@@ -27,7 +27,7 @@ void GrowShrinkCube_Handle(SPI_HandleTypeDef hspi1) //ok
 				for (int j = 0; j < 8; j++)
 				{
 					temp[j] = column_growshrink[3][j];
-					TransmitData(temp, layer_growshrink[3], hspi1);
+					TransmitData(temp, layer_growshrink[3]);
 				}
 				time_start = HAL_GetTick();
 				size_cube = FOUR_X_FOUR_CUBE;
@@ -39,7 +39,7 @@ void GrowShrinkCube_Handle(SPI_HandleTypeDef hspi1) //ok
 				for (int j = 0; j < 8; j++)
 				{
 					temp[j] = column_growshrink[2][j];
-					TransmitData(temp, layer_growshrink[2], hspi1);
+					TransmitData(temp, layer_growshrink[2]);
 				}
 				time_start = HAL_GetTick();
 				size_cube = SIX_X_SIX_CUBE;
@@ -51,7 +51,7 @@ void GrowShrinkCube_Handle(SPI_HandleTypeDef hspi1) //ok
 				for (int j = 0; j < 8; j++)
 				{
 					temp[j] = column_growshrink[1][j];
-					TransmitData(temp, layer_growshrink[1], hspi1);
+					TransmitData(temp, layer_growshrink[1]);
 				}
 				time_start = HAL_GetTick();
 				size_cube = EIGHT_X_EIGHT_CUBE;
@@ -63,7 +63,7 @@ void GrowShrinkCube_Handle(SPI_HandleTypeDef hspi1) //ok
 				for (int j = 0; j < 8; j++)
 				{
 					temp[j] = column_growshrink[0][j];
-					TransmitData(temp, layer_growshrink[0], hspi1);
+					TransmitData(temp, layer_growshrink[0]);
 				}
 				time_start = HAL_GetTick();
 				size_cube = TWO_X_TWO_CUBE;
