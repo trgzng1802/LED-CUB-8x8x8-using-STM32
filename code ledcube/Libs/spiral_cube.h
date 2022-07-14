@@ -40,9 +40,13 @@ typedef enum
 
 void SpiralCube_Handle();
 void SpiralCube_Set_State();
-void RollBiggest_Handle();
-void RollBigger_Handle();
-void RollMedium_Handle();
-void RollSmall_Handle();
+void RollBiggestCounterClockWise_Handle();
+void RollBiggerCounterClockWise_Handle();
+void RollMediumCounterClockWise_Handle();
+void RollSmallCounterClockWise_Handle();
+void RollBiggestClockWise_Handle();
+void RollBiggerClockWise_Handle();
+void RollMediumClockWise_Handle();
+void RollSmallClockWise_Handle();
 
 #endif /* SPIRAL_CUBE_H_ */
